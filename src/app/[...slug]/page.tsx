@@ -1,26 +1,18 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { categories } from "@/data/categories";
-import { products } from "@/data/products";
+import { Suspense } from "react";
 import { ComingSoon } from "@/components/layout/ComingSoon";
+import { PlainSkeleton } from "@/components/shop/Skeletons";
 
-// Temporary: every inner page linked from the homepage renders a branded
-// "coming soon" screen until it is built. Delete each path from this list as
-// the real route (e.g. app/collections/[slug]/page.tsx) is added.
+// Temporary: inner pages that are linked but not built yet render a branded
+// "coming soon" screen. Delete each path from this list as its real route is added.
 const planned: Record<string, string> = {
-  ...Object.fromEntries(categories.map((c) => [`collections/${c.slug}`, c.name])),
-  "collections/new-arrivals": "New Arrivals",
-  "collections/festive-edit": "The Festive Edit",
-  "collections/all": "All Sarees",
-  ...Object.fromEntries(products.map((p) => [`products/${p.slug}`, p.name])),
   about: "Our Story",
   contact: "Contact",
   faqs: "FAQs",
   "track-order": "Track Your Order",
-  cart: "Shopping Bag",
-  wishlist: "Wishlist",
+  checkout: "Checkout",
   account: "Account",
-  search: "Search",
   "policies/shipping": "Shipping Policy",
   "policies/returns": "Returns & Exchanges",
   "policies/privacy": "Privacy Policy",
@@ -37,7 +29,15 @@ export async function generateMetadata({ params }: PageProps<"/[...slug]">): Pro
   return title ? { title, robots: { index: false } } : {};
 }
 
-export default async function PlannedPage({ params }: PageProps<"/[...slug]">) {
+export default function PlannedPage({ params }: PageProps<"/[...slug]">) {
+  return (
+    <Suspense fallback={<PlainSkeleton />}>
+      <PlannedContent params={params} />
+    </Suspense>
+  );
+}
+
+async function PlannedContent({ params }: { params: Promise<{ slug: string[] }> }) {
   const { slug } = await params;
   const title = planned[slug.join("/")];
   if (!title) notFound();

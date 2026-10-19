@@ -21,7 +21,10 @@ npm run start
 | `src/components/home/` | One file per homepage section (hero, arc carousel, saree show, …). |
 | `src/components/layout/` | Header, mega menu, search, mobile menu, footer, intro curtain. |
 | `src/components/ui/` | Shared pieces: buttons, product card, section heading, ornaments, reveal animations. |
-| `src/app/[...slug]/page.tsx` | Temporary "coming soon" page for every inner link until those pages are built. |
+| `src/app/collections/[slug]`, `src/app/products/[slug]`, `cart`, `wishlist`, `search` | Shop pages (collection listing with filters, product page with add-ons, bag, wishlist, search). |
+| `src/components/shop/`, `src/components/product/` | Shop and product page components. |
+| `src/data/collections.ts`, `src/data/addons.ts` | Collection definitions (which sarees appear where) and the finishing add-ons with prices. |
+| `src/app/[...slug]/page.tsx` | Temporary "coming soon" page for links not built yet (about, contact, FAQs, policies, checkout, account). |
 | `public/brand/` | Logo (navbar / full / emblem), cut from the client's banner. |
 | `public/images/` | Product photos (real) and generated images (placeholders until replaced). |
 | `client-assets/` | Original files sent by the client. |
@@ -42,5 +45,6 @@ Search the code for `TODO(content)`:
 - Prices: only **A63** (₹1,379 → ₹1,199) is confirmed; others are placeholders.
 - Phone, WhatsApp number, email, address, store hours, social links and Instagram handle.
 - Testimonials are **sample text** — replace with real customer reviews.
-- Newsletter form and bag/wishlist are front-end only; connect to the store backend.
+- Newsletter form, bag and wishlist are front-end only (saved in the browser); checkout and payments need the store backend.
+- Saree length, blouse piece and weight for each product (`src/data/products.ts`).
 - Production domain in `src/data/site.ts`.

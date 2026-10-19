@@ -180,3 +180,17 @@ Patterns:
 - URL patterns: `/collections/{slug}`, `/products/{slug}`, `/policies/{slug}`, plus `/about`, `/contact`, `/faqs`, `/track-order`, `/cart`, `/wishlist`, `/account`, `/search`.
 - Never invent stats. Testimonials must be real customer words before launch.
 - Anything still awaiting real data (prices, contact details, reviews, social handles) is marked `// TODO(content)` in `src/data` — search for it before going live.
+
+---
+
+## 11. Inner pages (shop)
+
+| Page | Pattern |
+|---|---|
+| **Collection** `/collections/{slug}` | Dark maroon hero (breadcrumb, lotus eyebrow, two-line title, count + shipping/COD chips, arch image) → collection rail (round thumbnails, active ring in gold) → filters (sidebar ≥1024px, bottom sheet on mobile: fabric, colour swatches, price buckets, on sale) + sort + 3/4-column density → "Know the fabric" band → trust strip. Empty categories show an "On the loom" state with WhatsApp CTA and in-stock collections — never a blank grid. |
+| **Product** `/products/{slug}` | Gallery (thumbs, hover-zoom, swipe, full-screen lightbox) left and sticky; right: fabric eyebrow, title, price/MRP/savings, colour swatches linking sibling sarees, **finishing add-ons** (Falls & Pico ₹150, Pico/Zigzag ₹100, Tassels ₹150) with a live Saree / Add-ons / Quantity / Grand total summary, qty stepper, Add to bag, Buy now, wishlist, WhatsApp enquiry, accordions (description, details, care, shipping), share. Below: reviews, "You may also love", recently viewed. Sticky buy bar on mobile. |
+| **Bag** `/cart` | Lines with add-ons, qty, move to wishlist, remove; dark summary card (MRP, discount, add-ons, free shipping, total, savings), checkout + "Order on WhatsApp". |
+| **Wishlist / Search** | Light page header + product grid; helpful empty states with popular searches and collections. |
+
+Loading: URL-dependent routes stream inside `<Suspense>` with skeletons (`src/components/shop/Skeletons.tsx`) so client navigation is instant.
+

@@ -5,9 +5,11 @@ import { FacebookIcon, InstagramIcon, WhatsAppIcon, YoutubeIcon } from "@/compon
 // Falls back to the contact page until the client shares real profile links.
 const fallback = "/contact";
 
-export const whatsappHref = site.contact.whatsapp
-  ? `https://wa.me/${site.contact.whatsapp}?text=${encodeURIComponent("Hi Monaariya Vastra! I'd like to know more about your sarees.")}`
-  : fallback;
+/** WhatsApp chat link with a pre-filled message (contact page until the number is configured). */
+export const whatsappLink = (message: string) =>
+  site.contact.whatsapp ? `https://wa.me/${site.contact.whatsapp}?text=${encodeURIComponent(message)}` : fallback;
+
+export const whatsappHref = whatsappLink("Hi Monaariya Vastra! I'd like to know more about your sarees.");
 
 export function SocialLinks({ className }: { className?: string }) {
   const items = [

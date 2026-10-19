@@ -81,9 +81,9 @@ export function ProductCard({ product, sizes }: { product: Product; sizes: strin
             style={{ background: product.swatch }}
           />
           <p className="eyebrow text-[0.62rem] text-gold-700">{product.fabric}</p>
-          {product.code && <p className="ml-auto text-[0.7rem] tracking-wider text-ink-500">Code {product.code}</p>}
+          {product.code && <p className="ml-auto hidden text-[0.7rem] tracking-wider text-ink-500 sm:block">Code {product.code}</p>}
         </div>
-        <h3 className="mt-2 font-display text-[1.3rem] leading-snug text-maroon-950">
+        <h3 className="mt-2 font-display text-[1.12rem] leading-snug text-maroon-950 sm:text-[1.3rem]">
           <Link href={href} className="bg-[linear-gradient(currentColor,currentColor)] bg-[length:0%_1px] bg-left-bottom bg-no-repeat transition-[background-size] duration-500 hover:bg-[length:100%_1px]">
             {product.name}
           </Link>

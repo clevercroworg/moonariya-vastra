@@ -14,7 +14,7 @@ export function WhatsAppButton() {
       initial={{ opacity: 0, scale: 0.6, y: 20 }}
       animate={{ opacity: 1, scale: 1, y: 0 }}
       transition={{ delay: 2.2, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-      className="group/wa fixed right-4 bottom-4 z-[60] flex items-center sm:right-6 sm:bottom-6"
+      className="group/wa fixed right-4 bottom-4 z-[60] flex items-center transition-[bottom] duration-300 sm:right-6 sm:bottom-6 max-lg:[html[data-buybar]_&]:bottom-24"
     >
       <span className="pointer-events-none mr-3 hidden translate-x-2 rounded-full bg-maroon-950 px-4 py-2 text-xs font-medium tracking-[0.12em] text-gold-200 uppercase opacity-0 shadow-xl transition-all duration-300 group-hover/wa:translate-x-0 group-hover/wa:opacity-100 sm:block">
         Chat with us

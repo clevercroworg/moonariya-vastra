@@ -64,7 +64,7 @@ function IconButton({
 }
 
 export function Header() {
-  const { bag, wishlist } = useStore();
+  const { bagCount, wishlist } = useStore();
   const [scrolled, setScrolled] = useState(false);
   const [megaOpen, setMegaOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
@@ -205,7 +205,7 @@ export function Header() {
               <IconButton label="Wishlist" href="/wishlist" count={wishlist.length}>
                 <Heart className="h-5 w-5" strokeWidth={1.4} />
               </IconButton>
-              <IconButton label="Shopping bag" href="/cart" count={bag.length}>
+              <IconButton label="Shopping bag" href="/cart" count={bagCount}>
                 <ShoppingBag className="h-5 w-5" strokeWidth={1.4} />
               </IconButton>
             </div>
