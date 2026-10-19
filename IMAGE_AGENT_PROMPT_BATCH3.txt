@@ -1,0 +1,43 @@
+TASK (BATCH 3 of 3 — fabric close-ups and occasion tiles): Generate these 7 website images for the Monaariya Vastra saree brand homepage (Next.js project open in this workspace).
+
+RULES
+1. Use your image generation tool for each image below, in order. Do NOT edit any code files.
+2. Save each result as a JPG at EXACTLY the path given, overwriting the placeholder that is already there.
+   If your tool outputs PNG/WebP, convert on macOS with:  sips -s format jpeg <input> --out <exact path>
+3. Match the aspect ratio given (exact pixels are not required; the site crops with object-cover). Keep the long edge at least as large as listed when possible.
+4. Every image must be photorealistic. Where a prompt describes a person, she is an Indian woman wearing a saree exactly as described. No image may contain text, letters, logos or watermarks.
+   Every image must fill the whole frame edge to edge: no drawn frames, arches, borders, vignettes or white/blank areas.
+5. After saving each image, append its number and path to image-progress-batch3.txt in the project root. If you are interrupted, read that file and continue from the next number.
+6. When finished, list every saved path.
+
+SHARED STYLE (applies to every image): Photorealistic luxury fashion editorial photograph, warm golden light, rich jewel tones with deep maroon and antique gold, crisp detail on the saree weave and zari border, natural skin texture, elegant and graceful. No text, no letters, no logo, no watermark.
+AVOID: text, logo, watermark, distorted hands, extra fingers, western dress, lehenga, plastic-looking fabric, oversaturated colours, cartoon look, blurry saree border.
+
+IMAGES
+#1  SAVE TO: public/images/fabrics/silk.jpg
+    SIZE: 1000x1250 (4:5 portrait)
+    PROMPT: Folded maroon silk with a heavy gold zari border, light raking across the weave. Macro product photograph of folded or draped fabric only, no people, soft natural light, ultra-detailed texture, plain dark or warm wooden surface. Photorealistic luxury fashion editorial photograph, warm golden light, rich jewel tones with deep maroon and antique gold, crisp detail on the saree weave and zari border, natural skin texture, elegant and graceful. No text, no letters, no logo, no watermark.
+
+#2  SAVE TO: public/images/fabrics/organza.jpg
+    SIZE: 1000x1250 (4:5 portrait)
+    PROMPT: Sheer blush organza with floral thread embroidery, light passing through the fabric. Macro product photograph of folded or draped fabric only, no people, soft natural light, ultra-detailed texture, plain dark or warm wooden surface. Photorealistic luxury fashion editorial photograph, warm golden light, rich jewel tones with deep maroon and antique gold, crisp detail on the saree weave and zari border, natural skin texture, elegant and graceful. No text, no letters, no logo, no watermark.
+
+#3  SAVE TO: public/images/fabrics/georgette.jpg
+    SIZE: 1000x1250 (4:5 portrait)
+    PROMPT: Emerald georgette in soft flowing folds showing its fine grainy texture. Macro product photograph of folded or draped fabric only, no people, soft natural light, ultra-detailed texture, plain dark or warm wooden surface. Photorealistic luxury fashion editorial photograph, warm golden light, rich jewel tones with deep maroon and antique gold, crisp detail on the saree weave and zari border, natural skin texture, elegant and graceful. No text, no letters, no logo, no watermark.
+
+#4  SAVE TO: public/images/fabrics/chiffon.jpg
+    SIZE: 1000x1250 (4:5 portrait)
+    PROMPT: Sheer peach chiffon layers, backlit so the folds glow softly. Macro product photograph of folded or draped fabric only, no people, soft natural light, ultra-detailed texture, plain dark or warm wooden surface. Photorealistic luxury fashion editorial photograph, warm golden light, rich jewel tones with deep maroon and antique gold, crisp detail on the saree weave and zari border, natural skin texture, elegant and graceful. No text, no letters, no logo, no watermark.
+
+#5  SAVE TO: public/images/fabrics/linen.jpg
+    SIZE: 1000x1250 (4:5 portrait)
+    PROMPT: Sage green linen with visible slub texture and a thin gold stripe. Macro product photograph of folded or draped fabric only, no people, soft natural light, ultra-detailed texture, plain dark or warm wooden surface. Photorealistic luxury fashion editorial photograph, warm golden light, rich jewel tones with deep maroon and antique gold, crisp detail on the saree weave and zari border, natural skin texture, elegant and graceful. No text, no letters, no logo, no watermark.
+
+#6  SAVE TO: public/images/occasions/daily-wear.jpg
+    SIZE: 900x900 (1:1 square)
+    PROMPT: Indian woman in a soft cotton saree reading by a sunny window with a cup of tea, calm everyday mood. Photorealistic luxury fashion editorial photograph, warm golden light, rich jewel tones with deep maroon and antique gold, crisp detail on the saree weave and zari border, natural skin texture, elegant and graceful. No text, no letters, no logo, no watermark.
+
+#7  SAVE TO: public/images/occasions/work-wear.jpg
+    SIZE: 900x900 (1:1 square)
+    PROMPT: Indian woman in a linen saree walking into a bright modern office with a laptop bag, confident and smiling. Photorealistic luxury fashion editorial photograph, warm golden light, rich jewel tones with deep maroon and antique gold, crisp detail on the saree weave and zari border, natural skin texture, elegant and graceful. No text, no letters, no logo, no watermark.

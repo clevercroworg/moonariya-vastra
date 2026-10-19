@@ -1,0 +1,232 @@
+MONAARIYA VASTRA — HOMEPAGE IMAGE LIST (33 images to generate)
+===============================================================
+
+FASTEST WAY: paste a ready-made batch into the Antigravity agent (max ~13 per run)
+  1. IMAGE_AGENT_PROMPT_BATCH1.txt  — 13 main images: 4 hero banners, festive banner,
+                                       2 story images, 6 Saree Show looks
+  2. IMAGE_AGENT_PROMPT_BATCH2.txt  — 13 images: 11 category images + 2 occasion tiles
+  3. IMAGE_AGENT_PROMPT_BATCH3.txt  —  7 images: 5 fabric close-ups + 2 occasion tiles
+  Open the file, select all, copy, paste into the agent and send. Each batch saves the
+  images straight into the right folders.
+
+Already covered by the client's real product photos (nothing to generate):
+  New Arrivals cards, Instagram gallery, and the Tissue + Cotton tiles in the Fabric Guide.
+
+HOW TO USE
+1. Generate each image at the size shown, or larger with the same shape (aspect ratio).
+2. Save it as JPG (quality ~85, sRGB) using EXACTLY the file name shown.
+3. Put it in the folder shown, inside the project. It replaces the placeholder
+   that is already there, and the website picks it up automatically (no code change).
+4. Keep each file under ~600 KB. Next.js resizes and compresses them for visitors.
+5. Every image must fill the frame edge to edge: no borders, drawn frames or white areas.
+
+Real product photos you already sent are used in "New Arrivals" (public/images/products/).
+They do not need to be generated.
+
+ADD THIS STYLE LINE TO THE END OF EVERY PROMPT
+"Photorealistic luxury fashion editorial, warm golden light, rich jewel tones with
+deep maroon and antique gold, crisp detail on the saree weave and zari, natural
+skin texture, elegant and graceful, no text, no logo, no watermark."
+
+NEGATIVE PROMPT (if your tool supports it)
+"text, letters, logo, watermark, distorted hands, extra fingers, western dress,
+lehenga, plastic-looking fabric, oversaturated, cartoon, blurry saree border"
+
+
+------------------------------------------------------------
+A. HERO SLIDER (top of the homepage) — 4 images
+   Folder: public/images/hero/
+   Size: 2400 x 1350 px (16:9, landscape)
+   IMPORTANT: keep the woman in the RIGHT third of the picture. The left
+   two-thirds should be calm and slightly dark, because the headline sits there.
+   On phones the picture is cropped to the right side, so keep her face and
+   saree clearly inside the right half.
+------------------------------------------------------------
+
+[1] hero-festive-silk.jpg
+Wide cinematic photograph of a graceful Indian woman in her late twenties wearing a
+deep maroon silk saree with a broad antique-gold zari border and a richly woven gold
+pallu over her shoulder. She stands in the right third of the frame inside a dimly
+lit heritage hall with carved teak pillars, brass lamps glowing softly behind her.
+Minimal temple jewellery, jasmine in her hair, calm confident expression. The left
+side of the frame is dark, softly blurred and empty. Shallow depth of field.
+
+[2] hero-semi-tissue.jpg
+Wide cinematic photograph of an Indian woman draping a violet-purple semi tissue silk
+saree with geometric gold zari motifs — clusters of small woven gold squares on the
+body and a wide gold patchwork-square border and pallu. She stands in the right third,
+lightly holding the pallu, beside tall brass diya lamps with marigold garlands, evening
+festive light. Left side of the frame is dark warm shadow, empty for text.
+
+[3] hero-everyday-cotton.jpg
+Wide photograph of a young Indian woman walking gracefully through a sunlit
+traditional courtyard with terracotta floor tiles and a wooden pillared veranda,
+wearing a mustard-orange cotton blend saree with a printed floral border in maroon,
+green and orange and a thin gold zari edge. Morning light, relaxed natural smile.
+She is in the right third; the left side is soft shaded wall, uncluttered.
+
+[4] hero-party-wear.jpg
+Wide cinematic photograph of an Indian woman in a shimmering emerald green organza
+saree with fine sequin sparkle and a slim gold border, at an elegant evening
+celebration, warm golden bokeh lights behind her. Bold earrings, sleek hair, poised
+over-the-shoulder look. Subject in the right third; left side is dark bokeh only.
+
+
+------------------------------------------------------------
+B. SHOP BY CATEGORY (curved arc carousel) — 11 images
+   Folder: public/images/categories/
+   Size: 900 x 1200 px (3:4, portrait)
+   The website crops these into a temple-arch shape itself, so generate a normal
+   full-bleed photo (edge to edge, NO drawn arch, frame or white corners) with some
+   empty background above her head. Centre the woman, full-length or knee-up.
+------------------------------------------------------------
+
+[5] silk-sarees.jpg
+Indian woman in a rich red-and-maroon silk saree with a wide gold zari border, standing
+in a stone temple corridor with warm lamp light. Traditional gold jewellery, jasmine
+in a braided bun.
+
+[6] tissue-sarees.jpg
+Indian woman in a magenta semi tissue silk saree with geometric woven gold squares and
+a patchwork gold border, soft festive light, brass lamps blurred in the background.
+
+[7] organza-sarees.jpg
+Indian woman in a blush-pink organza saree with delicate floral thread embroidery,
+standing in a garden with soft afternoon light filtering through leaves.
+
+[8] designer-sarees.jpg
+Indian woman in a contemporary black designer saree with an embellished gold sequin
+border and a modern structured blouse, in a minimal studio with arched ivory
+doorways, dramatic side light.
+
+[9] party-wear-sarees.jpg
+Indian woman in a wine-coloured shimmer georgette saree with a sequinned border at an
+evening party, warm fairy-light bokeh behind her, playful confident pose.
+
+[10] georgette-sarees.jpg
+Indian woman in a flowing emerald green georgette saree, the pallu lifting gently in the
+breeze, on a balcony with carved stone railings, soft overcast light.
+
+[11] chiffon-sarees.jpg
+Indian woman in a featherlight peach chiffon saree with a thin gold border on a
+terrace at golden hour, the fabric softly translucent against the light.
+
+[12] linen-sarees.jpg
+Indian woman in a sage green linen saree with a thin gold stripe border, minimal
+modern interior with lime-plaster walls and a wooden bench, clean daylight.
+
+[13] cotton-sarees.jpg
+Indian woman in a teal green cotton blend saree with a printed floral border in maroon,
+orange and green and a thin gold zari edge, standing at a sunlit wooden doorway.
+
+[14] handloom-sarees.jpg
+Indian woman in an off-white handloom cotton saree with a broad red and gold woven
+border, standing beside a traditional wooden handloom in a bright workshop.
+
+[15] daily-wear-sarees.jpg
+Indian woman in an olive green cotton saree with a printed border, relaxed everyday
+setting at home near a window with plants, holding a cup of tea, natural light.
+
+
+------------------------------------------------------------
+C. THE SAREE SHOW (sideways scrolling runway) — 6 images
+   Folder: public/images/saree-show/
+   Size: 1000 x 1500 px (2:3, tall portrait)
+   Full-length, fashion-ramp feeling: moody low-key light with a warm spotlight
+   on the model and darker surroundings, so they sit well on the dark section.
+------------------------------------------------------------
+
+[16] look-01-temple-bride.jpg
+Full-length Indian bride in a maroon and antique-gold silk saree with temple jewellery,
+jasmine in her hair, walking slowly down a dim temple corridor lit by oil lamps.
+
+[17] look-02-golden-hour.jpg
+Full-length Indian woman in a violet semi tissue silk saree with geometric gold zari,
+on a rooftop terrace at sunset, warm orange rim light on the fabric.
+
+[18] look-03-garden-soiree.jpg
+Full-length Indian woman in a blush-pink floral organza saree in a garden at dusk with
+soft string lights, gentle twirl showing the sheer pallu.
+
+[19] look-04-city-poise.jpg
+Full-length Indian woman in a crisp sage linen saree with a sleeveless blouse and a
+structured leather tote, confident stride in a modern office lobby with warm lighting.
+
+[20] look-05-monsoon-muse.jpg
+Full-length Indian woman in a flowing emerald georgette saree on a rain-washed balcony,
+soft monsoon light, the pallu moving in the wind.
+
+[21] look-06-everyday-grace.jpg
+Full-length Indian woman in a teal cotton blend saree with a printed floral border,
+standing at a sunlit doorway of a traditional home, relaxed and smiling.
+
+
+------------------------------------------------------------
+D. FABRIC GUIDE (close-up textures, no people) — 5 images
+   (Tissue and Cotton already use real product close-ups.)
+   Folder: public/images/fabrics/
+   Size: 1000 x 1250 px (4:5, portrait)
+   Macro product photography of folded or draped fabric, soft natural light,
+   ultra-detailed texture, no people, plain dark or warm wooden surface.
+------------------------------------------------------------
+
+[22] silk.jpg      Macro of folded maroon silk with a heavy gold zari border, light raking across the weave.
+[24] organza.jpg   Macro of sheer blush organza with floral thread embroidery, light passing through the fabric.
+[25] georgette.jpg Macro of emerald georgette in soft flowing folds showing its fine grainy texture.
+[26] chiffon.jpg   Macro of sheer peach chiffon layers, backlit so the folds glow softly.
+[27] linen.jpg     Macro of sage green linen with visible slub texture and a thin gold stripe.
+
+
+------------------------------------------------------------
+E. FESTIVE BANNER (wide promo strip) — 1 image
+   Folder: public/images/banners/
+   Size: 2400 x 1000 px (12:5, wide)
+   The headline sits in the CENTRE, so keep the centre darker and calmer and put
+   the objects towards the left and right edges.
+------------------------------------------------------------
+
+[29] festive-edit.jpg
+Festive still life on a dark teak surface: neatly folded silk sarees in maroon, violet
+and emerald with gold zari borders on the left and right edges, glowing brass diyas,
+marigold and jasmine flowers and a hint of rangoli. Warm candlelight, deep shadows in
+the centre.
+
+
+------------------------------------------------------------
+F. SHOP BY OCCASION (photo grid) — 4 images
+   Folder: public/images/occasions/
+------------------------------------------------------------
+
+[30] wedding-festive.jpg — 1200 x 1200 px (square)
+Two or three Indian women in silk sarees (maroon, gold, emerald) laughing together at a
+festive wedding with marigold garlands and brass decor, candid and joyful.
+
+[31] party-wear.jpg — 1600 x 800 px (2:1, wide)
+Indian woman in a shimmering georgette saree at an evening party, holding a glass,
+warm bokeh lights; subject left of centre.
+
+[32] daily-wear.jpg — 900 x 900 px (square)
+Indian woman in a soft cotton saree reading by a sunny window with a cup of tea, calm
+everyday mood.
+
+[33] work-wear.jpg — 900 x 900 px (square)
+Indian woman in a linen saree walking into a bright modern office with a laptop bag,
+confident and smiling.
+
+
+------------------------------------------------------------
+G. OUR STORY — 2 images
+   Folder: public/images/story/
+------------------------------------------------------------
+
+[34] story-drape.jpg — 1000 x 1250 px (4:5, portrait)
+Close mid-shot of an Indian woman gently adjusting the pallu of a gold-bordered maroon
+silk saree over her shoulder, warm window light, focus on hands and zari.
+
+[35] story-weave.jpg — 900 x 900 px (square)
+Close-up of a weaver's hands guiding gold zari threads on a wooden handloom, warm
+workshop light, shallow depth of field.
+
+
+(The Instagram gallery uses real product photos for now; replace with the brand's real
+Instagram posts later in src/data/home.ts.)

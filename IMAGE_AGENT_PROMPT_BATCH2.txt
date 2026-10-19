@@ -1,0 +1,67 @@
+TASK (BATCH 2 of 3 — shop-by-category and occasion images): Generate these 13 website images for the Monaariya Vastra saree brand homepage (Next.js project open in this workspace).
+
+RULES
+1. Use your image generation tool for each image below, in order. Do NOT edit any code files.
+2. Save each result as a JPG at EXACTLY the path given, overwriting the placeholder that is already there.
+   If your tool outputs PNG/WebP, convert on macOS with:  sips -s format jpeg <input> --out <exact path>
+3. Match the aspect ratio given (exact pixels are not required; the site crops with object-cover). Keep the long edge at least as large as listed when possible.
+4. Every image must be photorealistic. Where a prompt describes a person, she is an Indian woman wearing a saree exactly as described. No image may contain text, letters, logos or watermarks.
+   Every image must fill the whole frame edge to edge: no drawn frames, arches, borders, vignettes or white/blank areas.
+5. After saving each image, append its number and path to image-progress-batch2.txt in the project root. If you are interrupted, read that file and continue from the next number.
+6. When finished, list every saved path.
+
+SHARED STYLE (applies to every image): Photorealistic luxury fashion editorial photograph, warm golden light, rich jewel tones with deep maroon and antique gold, crisp detail on the saree weave and zari border, natural skin texture, elegant and graceful. No text, no letters, no logo, no watermark.
+AVOID: text, logo, watermark, distorted hands, extra fingers, western dress, lehenga, plastic-looking fabric, oversaturated colours, cartoon look, blurry saree border.
+
+IMAGES
+#1  SAVE TO: public/images/categories/silk-sarees.jpg
+    SIZE: 900x1200 (3:4 portrait)
+    PROMPT: Indian woman in a rich red-and-maroon silk saree with a wide gold zari border in a stone temple corridor with warm lamp light, traditional gold jewellery, jasmine in a braided bun. Centre the woman, full-length or knee-up, with some empty background above her head. Full-bleed photograph filling the entire frame edge to edge; do NOT draw an arch, frame, border or any white or blank area (the website applies its own arch shape). Photorealistic luxury fashion editorial photograph, warm golden light, rich jewel tones with deep maroon and antique gold, crisp detail on the saree weave and zari border, natural skin texture, elegant and graceful. No text, no letters, no logo, no watermark.
+
+#2  SAVE TO: public/images/categories/tissue-sarees.jpg
+    SIZE: 900x1200 (3:4 portrait)
+    PROMPT: Indian woman in a magenta semi tissue silk saree with geometric woven gold squares and a patchwork gold border, soft festive light, blurred brass lamps behind. Centre the woman, full-length or knee-up, with some empty background above her head. Full-bleed photograph filling the entire frame edge to edge; do NOT draw an arch, frame, border or any white or blank area (the website applies its own arch shape). Photorealistic luxury fashion editorial photograph, warm golden light, rich jewel tones with deep maroon and antique gold, crisp detail on the saree weave and zari border, natural skin texture, elegant and graceful. No text, no letters, no logo, no watermark.
+
+#3  SAVE TO: public/images/categories/organza-sarees.jpg
+    SIZE: 900x1200 (3:4 portrait)
+    PROMPT: Indian woman in a blush-pink organza saree with delicate floral thread embroidery in a garden, soft afternoon light filtering through leaves. Centre the woman, full-length or knee-up, with some empty background above her head. Full-bleed photograph filling the entire frame edge to edge; do NOT draw an arch, frame, border or any white or blank area (the website applies its own arch shape). Photorealistic luxury fashion editorial photograph, warm golden light, rich jewel tones with deep maroon and antique gold, crisp detail on the saree weave and zari border, natural skin texture, elegant and graceful. No text, no letters, no logo, no watermark.
+
+#4  SAVE TO: public/images/categories/designer-sarees.jpg
+    SIZE: 900x1200 (3:4 portrait)
+    PROMPT: Indian woman in a contemporary black designer saree with an embellished gold sequin border and a modern structured blouse, minimal studio with arched ivory doorways, dramatic side light. Centre the woman, full-length or knee-up, with some empty background above her head. Full-bleed photograph filling the entire frame edge to edge; do NOT draw an arch, frame, border or any white or blank area (the website applies its own arch shape). Photorealistic luxury fashion editorial photograph, warm golden light, rich jewel tones with deep maroon and antique gold, crisp detail on the saree weave and zari border, natural skin texture, elegant and graceful. No text, no letters, no logo, no watermark.
+
+#5  SAVE TO: public/images/categories/party-wear-sarees.jpg
+    SIZE: 900x1200 (3:4 portrait)
+    PROMPT: Indian woman in a wine-coloured shimmer georgette saree with a sequinned border at an evening party, warm fairy-light bokeh, playful confident pose. Centre the woman, full-length or knee-up, with some empty background above her head. Full-bleed photograph filling the entire frame edge to edge; do NOT draw an arch, frame, border or any white or blank area (the website applies its own arch shape). Photorealistic luxury fashion editorial photograph, warm golden light, rich jewel tones with deep maroon and antique gold, crisp detail on the saree weave and zari border, natural skin texture, elegant and graceful. No text, no letters, no logo, no watermark.
+
+#6  SAVE TO: public/images/categories/georgette-sarees.jpg
+    SIZE: 900x1200 (3:4 portrait)
+    PROMPT: Indian woman in a flowing emerald green georgette saree, pallu lifting gently in the breeze, on a balcony with carved stone railings, soft overcast light. Centre the woman, full-length or knee-up, with some empty background above her head. Full-bleed photograph filling the entire frame edge to edge; do NOT draw an arch, frame, border or any white or blank area (the website applies its own arch shape). Photorealistic luxury fashion editorial photograph, warm golden light, rich jewel tones with deep maroon and antique gold, crisp detail on the saree weave and zari border, natural skin texture, elegant and graceful. No text, no letters, no logo, no watermark.
+
+#7  SAVE TO: public/images/categories/chiffon-sarees.jpg
+    SIZE: 900x1200 (3:4 portrait)
+    PROMPT: Indian woman in a featherlight peach chiffon saree with a thin gold border on a terrace at golden hour, fabric softly translucent against the light. Centre the woman, full-length or knee-up, with some empty background above her head. Full-bleed photograph filling the entire frame edge to edge; do NOT draw an arch, frame, border or any white or blank area (the website applies its own arch shape). Photorealistic luxury fashion editorial photograph, warm golden light, rich jewel tones with deep maroon and antique gold, crisp detail on the saree weave and zari border, natural skin texture, elegant and graceful. No text, no letters, no logo, no watermark.
+
+#8  SAVE TO: public/images/categories/linen-sarees.jpg
+    SIZE: 900x1200 (3:4 portrait)
+    PROMPT: Indian woman in a sage green linen saree with a thin gold stripe border in a minimal modern interior with lime-plaster walls and a wooden bench, clean daylight. Centre the woman, full-length or knee-up, with some empty background above her head. Full-bleed photograph filling the entire frame edge to edge; do NOT draw an arch, frame, border or any white or blank area (the website applies its own arch shape). Photorealistic luxury fashion editorial photograph, warm golden light, rich jewel tones with deep maroon and antique gold, crisp detail on the saree weave and zari border, natural skin texture, elegant and graceful. No text, no letters, no logo, no watermark.
+
+#9  SAVE TO: public/images/categories/cotton-sarees.jpg
+    SIZE: 900x1200 (3:4 portrait)
+    PROMPT: Indian woman in a teal green cotton blend saree with a printed floral border in maroon, orange and green and a thin gold zari edge, standing at a sunlit wooden doorway. Centre the woman, full-length or knee-up, with some empty background above her head. Full-bleed photograph filling the entire frame edge to edge; do NOT draw an arch, frame, border or any white or blank area (the website applies its own arch shape). Photorealistic luxury fashion editorial photograph, warm golden light, rich jewel tones with deep maroon and antique gold, crisp detail on the saree weave and zari border, natural skin texture, elegant and graceful. No text, no letters, no logo, no watermark.
+
+#10  SAVE TO: public/images/categories/handloom-sarees.jpg
+    SIZE: 900x1200 (3:4 portrait)
+    PROMPT: Indian woman in an off-white handloom cotton saree with a broad red and gold woven border beside a traditional wooden handloom in a bright workshop. Centre the woman, full-length or knee-up, with some empty background above her head. Full-bleed photograph filling the entire frame edge to edge; do NOT draw an arch, frame, border or any white or blank area (the website applies its own arch shape). Photorealistic luxury fashion editorial photograph, warm golden light, rich jewel tones with deep maroon and antique gold, crisp detail on the saree weave and zari border, natural skin texture, elegant and graceful. No text, no letters, no logo, no watermark.
+
+#11  SAVE TO: public/images/categories/daily-wear-sarees.jpg
+    SIZE: 900x1200 (3:4 portrait)
+    PROMPT: Indian woman in an olive green cotton saree with a printed border at home near a window with plants, holding a cup of tea, natural everyday light. Centre the woman, full-length or knee-up, with some empty background above her head. Full-bleed photograph filling the entire frame edge to edge; do NOT draw an arch, frame, border or any white or blank area (the website applies its own arch shape). Photorealistic luxury fashion editorial photograph, warm golden light, rich jewel tones with deep maroon and antique gold, crisp detail on the saree weave and zari border, natural skin texture, elegant and graceful. No text, no letters, no logo, no watermark.
+
+#12  SAVE TO: public/images/occasions/wedding-festive.jpg
+    SIZE: 1200x1200 (1:1 square)
+    PROMPT: Two or three Indian women in silk sarees (maroon, gold, emerald) laughing together at a festive wedding with marigold garlands and brass decor, candid and joyful. Photorealistic luxury fashion editorial photograph, warm golden light, rich jewel tones with deep maroon and antique gold, crisp detail on the saree weave and zari border, natural skin texture, elegant and graceful. No text, no letters, no logo, no watermark.
+
+#13  SAVE TO: public/images/occasions/party-wear.jpg
+    SIZE: 1600x800 (2:1 wide)
+    PROMPT: Indian woman in a shimmering georgette saree at an evening party holding a glass, warm bokeh lights, subject left of centre. Photorealistic luxury fashion editorial photograph, warm golden light, rich jewel tones with deep maroon and antique gold, crisp detail on the saree weave and zari border, natural skin texture, elegant and graceful. No text, no letters, no logo, no watermark.
