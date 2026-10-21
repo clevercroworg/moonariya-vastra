@@ -3,7 +3,10 @@ export type Fabric =
   | "Pure Tissue"
   | "Pure Raw Silk"
   | "Raw Silk"
-  | "Semi Tissue Silk"
+  | "Semi Silk"
+  | "Viscose Tussar"
+  | "Windy Crush"
+  | "Thread Work"
   | "Georgette"
   | "Cotton Blend";
 
@@ -193,7 +196,7 @@ const georgette = (slug: string, colour: string, swatch: string) =>
   });
 
 /* ------------------------------------------------------------------ */
-/*  Semi Tissue Silk — A63 (WhatsApp photos)                           */
+/*  Semi Silk — A63 (first WhatsApp photos; sheet lists it as B63)       */
 /* ------------------------------------------------------------------ */
 
 const semiTissue = (p: { slug: string; name: string; colour: string; swatch: string; files: [string, string][] }) =>
@@ -201,26 +204,20 @@ const semiTissue = (p: { slug: string; name: string; colour: string; swatch: str
     slug: p.slug,
     code: "A63",
     name: p.name,
-    fabric: "Semi Tissue Silk",
-    collections: ["tissue-sarees", "silk-sarees", "party-wear-sarees", "festive-edit"],
+    fabric: "Semi Silk",
+    collections: ["silk-sarees", "party-wear-sarees", "festive-edit"],
     colour: p.colour,
     swatch: p.swatch,
     price: 1199,
     mrp: 1379,
     addedAt: "2026-10-18",
     images: p.files.map(([f, alt]) => img(f, alt)),
-    summary: `A light, lustrous ${p.colour.toLowerCase()} semi tissue silk saree with geometric gold zari — made to glow at every celebration.`,
+    summary: `A light, lustrous ${p.colour.toLowerCase()} semi silk saree with geometric gold zari — made to glow at every celebration.`,
     description: [
-      `Clusters of small woven gold squares scatter across this ${p.colour.toLowerCase()} semi tissue silk, gathering into a broad patchwork-square border and a rich zari pallu.`,
+      `Clusters of small woven gold squares scatter across this ${p.colour.toLowerCase()} semi silk, gathering into a broad patchwork-square border and a rich zari pallu.`,
       "It carries the sheen of a festive silk while staying light enough to wear through a long pooja, a reception or an evening of celebrations.",
     ],
-    // TODO(content): A63 sheet not received — length/blouse assumed to match the range
-    details: [
-      { label: "Fabric", value: "Semi tissue silk" },
-      { label: "Work", value: "Geometric gold zari on body, border and pallu" },
-      { label: "Occasion", value: "Festive, poojas, receptions, parties" },
-      { label: "Delivery", value: "7–15 working days" },
-    ],
+    details: sheetDetails("Semi silk", "Geometric gold zari on body, border and pallu"),
     care: DRY_CLEAN,
   });
 
@@ -274,7 +271,7 @@ type Design = {
   description: (colour: string) => string[];
 };
 
-const variant = (d: Design, slug: string, colour: string, swatch: string, captions: string[]) =>
+const variant = (d: Design, slug: string, colour: string, swatch: string, captions: string[] | number) =>
   make({
     slug,
     code: d.code,
@@ -287,7 +284,12 @@ const variant = (d: Design, slug: string, colour: string, swatch: string, captio
     mrp: d.mrp,
     badge: "New",
     addedAt: d.addedAt,
-    images: numbered(slug, captions.length, `${colour} ${d.label.toLowerCase()}`, captions),
+    images: numbered(
+      slug,
+      typeof captions === "number" ? captions : captions.length,
+      `${colour} ${d.label.toLowerCase()}`,
+      typeof captions === "number" ? [] : captions,
+    ),
     summary: d.summary(colour),
     description: d.description(colour),
     details: sheetDetails(d.fabricLine, d.work),
@@ -352,6 +354,117 @@ const B142: Design = {
   description: (c) => [
     `${c} raw silk dotted with silver buttis and edged with a Paithani-style border in German silver, woven with parrots, lotuses and vines in jewel colours.`,
     "A classic Maharashtrian look with a lighter, everyday-festive feel.",
+  ],
+};
+
+const A63: Design = {
+  code: "A63", fabric: "Semi Silk", label: "Semi Silk Saree",
+  fabricLine: "Semi silk", work: "Geometric gold zari on body, border and pallu",
+  price: 1199, mrp: 1379, collections: ["silk-sarees", "party-wear-sarees", "festive-edit"], addedAt: "2026-10-19",
+  summary: (c) => `A light, lustrous ${c.toLowerCase()} semi silk saree with geometric gold zari — made to glow at every celebration.`,
+  description: (c) => [
+    `Clusters of small woven gold squares scatter across this ${c.toLowerCase()} semi silk, gathering into a broad patchwork-square border and a rich zari pallu.`,
+    "Festive sheen at an everyday price — light enough to wear through a long pooja or a reception.",
+  ],
+};
+const A55: Design = {
+  code: "A55", fabric: "Semi Silk", label: "Semi Raw Silk Saree with Rich Zari",
+  fabricLine: "Semi raw silk", work: "Rich zari border with leaf motifs and zari buttas",
+  price: 1399, mrp: 1609, collections: ["silk-sarees", "party-wear-sarees", "festive-edit"], addedAt: "2026-10-21",
+  summary: (c) => `A ${c.toLowerCase()} semi raw silk saree with a rich zari leaf border and scattered zari buttas.`,
+  description: (c) => [
+    `Lustrous ${c.toLowerCase()} semi raw silk with scattered tulip buttas and a deep border of woven zari leaves.`,
+    "A classic festive drape that is easy on the budget and lovely in photographs.",
+  ],
+};
+const A32: Design = {
+  code: "A32", fabric: "Thread Work", label: "Thread Embroidery Saree with Tassels",
+  fabricLine: "Soft silk blend", work: "Thread embroidery with tassels on the pallu",
+  price: 1699, mrp: 1959, collections: ["designer-sarees", "daily-wear-sarees"], addedAt: "2026-10-21",
+  summary: (c) => `A soft ${c.toLowerCase()} saree with tonal thread embroidery and playful tassels on the pallu.`,
+  description: (c) => [
+    `Muted ${c.toLowerCase()} with delicate tonal thread embroidery — sprigs and ginkgo-leaf motifs — and hand-finished tassels along the pallu.`,
+    "Understated and modern: perfect for office days, brunches and small functions.",
+  ],
+};
+const B43: Design = {
+  code: "B43", fabric: "Viscose Tussar", label: "Viscose Tussar Saree with Pichwai Work",
+  fabricLine: "GT viscose tussar", work: "Pichwai-style cow and lotus border with zari stripes",
+  price: 4799, mrp: 5999, collections: ["designer-sarees", "festive-edit"], addedAt: "2026-10-21",
+  summary: (c) => `A ${c.toLowerCase()} viscose tussar saree with a Pichwai border of cows and lotuses.`,
+  description: (c) => [
+    `Fine zari stripes run across ${c.toLowerCase()} viscose tussar, framed by a Pichwai-inspired border of grazing cows and pastel lotuses, finished with tassels.`,
+    "Art on a drape — beautiful for festivals, poojas and gallery-worthy occasions.",
+  ],
+};
+const B23: Design = {
+  code: "B23", fabric: "Viscose Tussar", label: "Viscose Tussar Saree with Geometric Work",
+  fabricLine: "GT viscose tussar", work: "Multicolour geometric temple border with zari stripes",
+  price: 6499, mrp: 8129, collections: ["designer-sarees", "party-wear-sarees"], addedAt: "2026-10-21",
+  summary: (c) => `A ${c.toLowerCase()} viscose tussar saree with a bold multicolour geometric temple border.`,
+  description: (c) => [
+    `${c} viscose tussar with fine zari stripes meets a striking border of stepped temple triangles in red, gold and blue.`,
+    "Graphic and joyful — a statement for parties and festive evenings.",
+  ],
+};
+const B73: Design = {
+  code: "B73", fabric: "Viscose Tussar", label: "Viscose Tussar Saree with Floral Checks",
+  fabricLine: "GT viscose tussar", work: "Zari checks with a woven floral border",
+  price: 4799, mrp: 5999, collections: ["designer-sarees", "party-wear-sarees"], addedAt: "2026-10-21",
+  summary: (c) => `A ${c.toLowerCase()} viscose tussar saree with fine zari checks and a border of soft florals.`,
+  description: (c) => [
+    `Fine zari checks across ${c.toLowerCase()} viscose tussar, with a deep border of roses and violets in soft pastels and a tasselled pallu.`,
+    "Timeless and versatile — from family functions to festive dinners.",
+  ],
+};
+const B171: Design = {
+  code: "B171", fabric: "Viscose Tussar", label: "Viscose Tussar Saree with Cross-Stitch Parrots",
+  fabricLine: "GT viscose tussar", work: "Cross-stitch parrot motifs with zari checks",
+  price: 5399, mrp: 6749, collections: ["designer-sarees"], addedAt: "2026-10-21",
+  summary: (c) => `A ${c.toLowerCase()} viscose tussar saree with cross-stitched parrots and fine zari checks.`,
+  description: (c) => [
+    `Rich ${c.toLowerCase()} viscose tussar woven with fine zari checks and brightened by cross-stitched parrots in jewel colours.`,
+    "Handcrafted charm for festive days and family celebrations.",
+  ],
+};
+const B62: Design = {
+  code: "B62", fabric: "Viscose Tussar", label: "Line Tussar Saree with Korean Work",
+  fabricLine: "Line tussar", work: "Korean machinery embroidery — deer, trees and roses",
+  price: 4399, mrp: 5499, collections: ["designer-sarees", "festive-edit"], addedAt: "2026-10-21",
+  summary: (c) => `A ${c.toLowerCase()} line tussar saree embroidered with leaping deer, trees and roses.`,
+  description: (c) => [
+    `${c} line tussar becomes a storybook scene — leaping deer, a flowering tree, roses and scalloped waves embroidered across the pallu.`,
+    "Striking and festive, with a slim zari border.",
+  ],
+};
+const B11: Design = {
+  code: "B11", fabric: "Windy Crush", label: "Premium Windy Crush Saree",
+  fabricLine: "Premium windy crush", work: "Floral embroidery border with sequins",
+  price: 4199, mrp: 5249, collections: ["party-wear-sarees", "designer-sarees"], addedAt: "2026-10-21",
+  summary: (c) => `A ${c.toLowerCase()} premium windy crush saree with an embroidered floral border and sequins.`,
+  description: (c) => [
+    `Feather-light ${c.toLowerCase()} windy crush with a soft crinkled texture, finished with an embroidered border of large blossoms and scattered sequins.`,
+    "Effortless to drape and made for parties.",
+  ],
+};
+const B103: Design = {
+  code: "B103", fabric: "Windy Crush", label: "Windy Crush Saree with Rose Embroidery",
+  fabricLine: "Windy crush", work: "Rose embroidery with cut-work border",
+  price: 3799, mrp: 4749, collections: ["party-wear-sarees", "daily-wear-sarees"], addedAt: "2026-10-21",
+  summary: (c) => `A ${c.toLowerCase()} windy crush saree with pink rose embroidery and a cut-work border.`,
+  description: (c) => [
+    `Light ${c.toLowerCase()} windy crush with clusters of embroidered pink roses and a lacy cut-work edge.`,
+    "Breezy, pretty and easy to carry — great for day functions and parties.",
+  ],
+};
+const B116: Design = {
+  code: "B116", fabric: "Windy Crush", label: "Ombré Windy Crush Saree with Embroidery",
+  fabricLine: "Windy crush", work: "Ombré dye with floral embroidery border and sequins",
+  price: 2699, mrp: 3379, collections: ["party-wear-sarees", "daily-wear-sarees"], addedAt: "2026-10-21",
+  summary: (c) => `A ${c.toLowerCase()} ombré windy crush saree with a floral embroidery border and sequins.`,
+  description: (c) => [
+    `A soft ${c.toLowerCase()} ombré fades across this windy crush saree, finished with a floral embroidery border and sparkling sequins.`,
+    "Fresh, fun and light — made for parties, haldis and celebrations.",
   ],
 };
 
@@ -447,30 +560,65 @@ export const products: Product[] = [
     "Ivory pure raw silk saree with cut-work medallion and embroidered deer, folded",
     "Ivory and violet colourways together",
   ]),
+  variant(B43, "bottle-green-tussar-pichwai-saree", "Bottle Green", "#1f4a2c", 4),
+  variant(B43, "mustard-tussar-pichwai-saree", "Mustard", "#d1951c", 2),
+  variant(B43, "aubergine-tussar-pichwai-saree", "Aubergine", "#3b1f33", 2),
+  variant(B23, "sky-blue-tussar-geometric-saree", "Sky Blue", "#8fc4cc", 3),
+  variant(B23, "rani-pink-tussar-geometric-saree", "Rani Pink", "#c41e5a", 2),
+  variant(B23, "beige-tussar-geometric-saree", "Beige", "#d9b48a", 2),
+  variant(B73, "black-tussar-floral-check-saree", "Black", "#1d1b1a", 2),
+  variant(B73, "beige-tussar-floral-check-saree", "Beige", "#d6c08e", 3),
+  variant(B73, "maroon-tussar-floral-check-saree", "Maroon", "#6b1424", 2),
+  variant(B171, "wine-tussar-cross-stitch-saree", "Wine", "#6e1b3a", 4),
+  variant(B62, "red-line-tussar-korean-work-saree", "Red", "#b3162a", 2),
+  variant(B62, "black-line-tussar-korean-work-saree", "Black", "#1c1a1a", 2),
+  variant(B11, "sea-green-premium-windy-crush-saree", "Sea Green", "#7fb5a3", 4),
+  variant(B116, "coral-aqua-windy-crush-embroidery-saree", "Coral & Aqua", "#e98a6a", 4),
+  variant(B116, "pink-aqua-windy-crush-embroidery-saree", "Pink & Aqua", "#e8a9b8", 2),
+  variant(B116, "lavender-pink-windy-crush-embroidery-saree", "Lavender & Pink", "#a9a3d6", 2),
+  variant(B116, "lemon-aqua-windy-crush-embroidery-saree", "Lemon & Aqua", "#e8d35a", 2),
+  variant(B116, "peach-pink-windy-crush-embroidery-saree", "Peach & Pink", "#f0b8a4", 2),
+  variant(B103, "mustard-windy-crush-saree", "Mustard", "#d4a032", 4),
+  variant(B103, "lilac-windy-crush-saree", "Lilac", "#b8a5c9", 2),
+  variant(B103, "sky-blue-windy-crush-saree", "Sky Blue", "#7fc3d6", 2),
+  variant(A55, "mustard-semi-raw-silk-zari-saree", "Mustard", "#d39a1e", 2),
+  variant(A55, "dusty-rose-semi-raw-silk-zari-saree", "Dusty Rose", "#b9786f", 2),
+  variant(A55, "magenta-semi-raw-silk-zari-saree", "Magenta", "#b0246a", 2),
+  variant(A55, "coral-red-semi-raw-silk-zari-saree", "Coral Red", "#d94a4a", 2),
+  variant(A55, "ivory-semi-raw-silk-zari-saree", "Ivory", "#ece2c8", 2),
+  variant(A32, "dusty-blue-thread-work-saree", "Dusty Blue", "#8fb3bd", 2),
+  variant(A32, "sage-green-thread-work-saree", "Sage Green", "#7f9a85", 2),
+  variant(A32, "terracotta-thread-work-saree", "Terracotta", "#b46450", 2),
+  variant(A32, "plum-thread-work-saree", "Plum", "#6e5060", 2),
+  variant(A32, "peach-thread-work-saree", "Peach", "#d9906d", 2),
   georgette("wine-georgette-zari-saree", "Wine", "#5b1a2a"),
   georgette("rani-red-georgette-zari-saree", "Rani Red", "#a3163f"),
   georgette("mustard-georgette-zari-saree", "Mustard", "#d79a1f"),
   semiTissue({
-    slug: "violet-semi-tissue-silk-saree",
-    name: "Violet Semi Tissue Silk Saree",
+    slug: "violet-semi-silk-saree",
+    name: "Violet Semi Silk Saree",
     colour: "Violet",
     swatch: "#8a1fb0",
     files: [
-      ["violet-semi-tissue-silk-saree", "Violet semi tissue silk saree, folded to show the zari border"],
+      ["violet-semi-tissue-silk-saree", "Violet semi silk saree, folded to show the zari border"],
       ["violet-semi-tissue-silk-saree-detail", "Close-up of the geometric gold zari border"],
       ["violet-semi-tissue-silk-saree-pallu", "The saree unfolded to show the pallu and zari"],
     ],
   }),
   semiTissue({
-    slug: "magenta-semi-tissue-silk-saree",
-    name: "Magenta Semi Tissue Silk Saree",
+    slug: "magenta-semi-silk-saree",
+    name: "Magenta Semi Silk Saree",
     colour: "Magenta",
     swatch: "#8e1150",
     files: [
-      ["magenta-semi-tissue-silk-saree", "Magenta semi tissue silk saree, folded to show the zari border"],
+      ["magenta-semi-tissue-silk-saree", "Magenta semi silk saree, folded to show the zari border"],
       ["magenta-semi-tissue-silk-saree-detail", "Close-up of the patchwork-square zari border"],
     ],
   }),
+  variant(A63, "turquoise-semi-silk-saree", "Turquoise", "#1fb3b0", 2),
+  variant(A63, "orange-semi-silk-saree", "Orange", "#e8641c", 2),
+  variant(A63, "lime-green-semi-silk-saree", "Lime Green", "#a8c21c", 2),
+  variant(A63, "indigo-semi-silk-saree", "Indigo", "#3a237a", 2),
   cotton("teal-green-cotton-blend-saree", "Teal Green", "#0e4d45", "a maroon floral border and a green diamond band"),
   cotton("crimson-red-cotton-blend-saree", "Crimson Red", "#b0161c", "an orange floral border on teal", "Bestseller"),
   cotton("mustard-cotton-blend-saree", "Mustard", "#d07a12", "a maroon floral border and a deep red diamond band"),

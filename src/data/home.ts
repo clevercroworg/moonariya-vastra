@@ -30,11 +30,11 @@ export const heroSlides: HeroSlide[] = [
   },
   {
     id: "semi-tissue",
-    label: "Semi Tissue Silk",
+    label: "Semi Silk",
     eyebrow: "New Arrival",
     title: ["Light as air,", "lit like a festival."],
-    copy: "Featherlight semi tissue silks with geometric zari woven across jewel tones of magenta and violet.",
-    cta: { label: "Shop Semi Tissue", href: "/collections/tissue-sarees" },
+    copy: "Featherlight semi silks with geometric zari, woven in jewel tones from violet and magenta to turquoise and lime.",
+    cta: { label: "Shop Semi Silk", href: "/collections/semi-silk" },
     secondary: { label: "See New Arrivals", href: "/collections/new-arrivals" },
     image: "/images/hero/hero-semi-tissue.jpg",
     alt: "Woman draping a violet semi tissue silk saree with a geometric gold zari pallu beside brass lamps",
@@ -328,10 +328,10 @@ export type Testimonial = {
 export const testimonials: Testimonial[] = [
   {
     quote:
-      "The semi tissue saree looked even richer in person. The zari catches the light beautifully and it was so light to wear through a long pooja.",
+      "The semi silk saree looked even richer in person. The zari catches the light beautifully and it was so light to wear through a long pooja.",
     name: "Sample review",
     city: "Bengaluru",
-    product: "Violet Semi Tissue Silk Saree",
+    product: "Violet Semi Silk Saree",
   },
   {
     quote:

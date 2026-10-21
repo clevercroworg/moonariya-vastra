@@ -57,7 +57,7 @@ export function FestiveBanner() {
           </h2>
           <Reveal delay={0.25}>
             <p className="mx-auto mt-6 max-w-lg leading-relaxed text-ivory-100/80">
-              Jewel-toned silks and shimmering semi tissues chosen for Deepavali, poojas and every celebration in
+              Jewel-toned silks, shimmering tissues and storied tussars chosen for Deepavali, poojas and every celebration in
               between — with festive savings across the edit.
             </p>
           </Reveal>

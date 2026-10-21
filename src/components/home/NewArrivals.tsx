@@ -12,10 +12,11 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 
 const groups = {
   All: () => true,
-  Silk: (p: Product) => p.fabric === "Pure Raw Silk" || p.fabric === "Raw Silk" || p.fabric === "Semi Tissue Silk",
+  Silk: (p: Product) => ["Pure Raw Silk", "Raw Silk", "Semi Silk"].includes(p.fabric),
   Tissue: (p: Product) => p.fabric === "Pure Tissue" || p.fabric === "Pure Kora Tissue",
-  Georgette: (p: Product) => p.fabric === "Georgette",
-  Cotton: (p: Product) => p.fabric === "Cotton Blend",
+  Tussar: (p: Product) => p.fabric === "Viscose Tussar",
+  Crush: (p: Product) => p.fabric === "Windy Crush" || p.fabric === "Georgette",
+  Everyday: (p: Product) => p.fabric === "Cotton Blend" || p.fabric === "Thread Work",
 } satisfies Record<string, (p: Product) => boolean>;
 const filters = Object.keys(groups) as (keyof typeof groups)[];
 type Filter = keyof typeof groups;
