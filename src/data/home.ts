@@ -233,7 +233,7 @@ export const fabrics: Fabric[] = [
     feel: "Soft, breathable and easy",
     bestFor: "Daily wear, office, warm weather",
     drape: "Crisp at first, softer with every wash",
-    care: "Hand wash cold and separately for the first few washes.",
+    care: "Dry clean only to keep the colours and zari border fresh.",
     image: "/images/products/teal-green-cotton-blend-saree-detail.jpg",
     alt: "Close-up of a teal cotton blend saree with a printed floral border and zari edge",
     href: "/collections/cotton-sarees",

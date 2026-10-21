@@ -62,7 +62,7 @@ async function CollectionContent({ params }: { params: Promise<{ slug: string }>
       ) : (
         <EmptyCollection collection={collection} suggestions={suggestions} />
       )}
-      {fabric && <FabricNote fabric={fabric} />}
+      {fabric && collection.products.length > 0 && <FabricNote fabric={fabric} />}
       <TrustStrip />
     </>
   );
