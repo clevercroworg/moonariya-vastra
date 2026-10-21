@@ -34,7 +34,7 @@ export const site: Site = {
 export const announcements = [
   "Free shipping across India",
   "Cash on delivery available",
-  "New arrivals — Semi Tissue Silk sarees",
+  "New arrivals — pure raw silk & tissue sarees",
   "Secure payments · UPI · Cards · Net Banking",
 ];
 

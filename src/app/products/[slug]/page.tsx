@@ -113,16 +113,14 @@ async function ProductContent({ params }: { params: Promise<{ slug: string }> })
       title: "Shipping & returns",
       content: (
         <ul className="space-y-2.5">
-          <li>Free standard shipping across India.</li>
+          <li>Delivered in 7–15 working days, with free standard shipping across India.</li>
           <li>Cash on delivery, UPI, cards and net banking accepted.</li>
           <li>Finishing add-ons (falls, pico, tassels) are completed before dispatch.</li>
           <li>
-            For exchanges and returns, see our{" "}
-            <Link href="/policies/returns" className="text-maroon-700 underline underline-offset-4">
-              returns policy
-            </Link>
-            .
+            <strong className="font-medium text-ink-900">A full unpacking video is mandatory</strong> for any damage
+            claim. We don&rsquo;t accept returns or exchanges for any other reason.
           </li>
+          <li>Colours may vary slightly from what you see, depending on your screen.</li>
         </ul>
       ),
     },

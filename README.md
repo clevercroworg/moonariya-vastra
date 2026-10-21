@@ -27,7 +27,7 @@ npm run start
 | `src/app/[...slug]/page.tsx` | Temporary "coming soon" page for links not built yet (about, contact, FAQs, policies, checkout, account). |
 | `public/brand/` | Logo (navbar / full / emblem), cut from the client's banner. |
 | `public/images/` | Product photos (real) and generated images (placeholders until replaced). |
-| `client-assets/` | Original files sent by the client. |
+| `client-assets/` | Original files sent by the client (`drive/` = per-category product photos and price sheets from Google Drive). |
 
 ## Images
 
@@ -42,9 +42,9 @@ After an image is replaced, refresh the page twice in dev (the first load may st
 
 Search the code for `TODO(content)`:
 
-- Prices: only **A63** (₹1,379 → ₹1,199) is confirmed; others are placeholders.
+- Prices and specs come from the client's product sheets (`client-assets/drive/**/*.rtf`); A63 (semi tissue) has no sheet yet.
+- Drive folders not yet downloaded (Google rate limit): Semi Silk, Thread Work Sarees, Viscose Tussar, Windy Crush.
 - Phone, WhatsApp number, email, address, store hours, social links and Instagram handle.
 - Testimonials are **sample text** — replace with real customer reviews.
 - Newsletter form, bag and wishlist are front-end only (saved in the browser); checkout and payments need the store backend.
-- Saree length, blouse piece and weight for each product (`src/data/products.ts`).
 - Production domain in `src/data/site.ts`.

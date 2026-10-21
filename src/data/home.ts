@@ -162,8 +162,8 @@ export const fabrics: Fabric[] = [
     bestFor: "Weddings, festivals, heirloom moments",
     drape: "Structured; holds pleats beautifully",
     care: "Dry clean only. Store wrapped in muslin.",
-    image: "/images/fabrics/silk.jpg",
-    alt: "Close-up of maroon silk with a gold zari border",
+    image: "/images/products/mustard-pure-raw-silk-embroidery-saree-3.jpg",
+    alt: "Close-up of mustard pure raw silk with a cut-work border",
     href: "/collections/silk-sarees",
   },
   {
@@ -198,8 +198,8 @@ export const fabrics: Fabric[] = [
     bestFor: "Cocktails, evening events, travel",
     drape: "Flowing and figure-skimming",
     care: "Gentle hand wash in cold water, or dry clean.",
-    image: "/images/fabrics/georgette.jpg",
-    alt: "Close-up of flowing emerald georgette",
+    image: "/images/products/wine-georgette-zari-saree-2.jpg",
+    alt: "Close-up of wine georgette with geometric gold zari",
     href: "/collections/georgette-sarees",
   },
   {
@@ -273,18 +273,18 @@ export const occasions: Occasion[] = [
     id: "daily-wear",
     title: "Everyday Ease",
     copy: "Cottons made for real life.",
-    image: "/images/occasions/daily-wear.jpg",
-    alt: "Woman in a cotton saree with a cup of tea by a sunny window",
+    image: "/images/products/cotton-blend-pallu-1.jpg",
+    alt: "Printed floral pallu of a cotton blend saree",
     href: "/collections/daily-wear-sarees",
     layout: "tile",
   },
   {
     id: "work-wear",
     title: "Work Wear",
-    copy: "Linen and cotton for the 9-to-6.",
-    image: "/images/occasions/work-wear.jpg",
-    alt: "Woman in a linen saree carrying a laptop in a bright office",
-    href: "/collections/linen-sarees",
+    copy: "Easy cotton blends for the 9-to-6.",
+    image: "/images/products/teal-green-cotton-blend-saree.jpg",
+    alt: "Teal green cotton blend saree with a printed border",
+    href: "/collections/cotton-sarees",
     layout: "tile",
   },
 ];
@@ -351,10 +351,10 @@ export const testimonials: Testimonial[] = [
 
 // Real product photos for now — swap for the brand's actual Instagram posts later.
 export const instagramPosts = [
-  { image: "/images/products/violet-semi-tissue-silk-saree-pallu.jpg", alt: "Violet semi tissue silk saree pallu being unfolded" },
-  { image: "/images/products/mustard-cotton-blend-saree.jpg", alt: "Folded mustard cotton blend saree with a printed border" },
-  { image: "/images/products/magenta-semi-tissue-silk-saree-detail.jpg", alt: "Gold zari on a magenta semi tissue silk saree" },
-  { image: "/images/products/teal-green-cotton-blend-saree.jpg", alt: "Folded teal cotton blend saree" },
-  { image: "/images/products/crimson-red-cotton-blend-saree-detail.jpg", alt: "Printed floral border of a crimson cotton blend saree" },
-  { image: "/images/products/violet-semi-tissue-silk-saree.jpg", alt: "Folded violet semi tissue silk saree" },
+  { image: "/images/products/rose-gold-pure-kora-tissue-saree-4.jpg", alt: "Deer motifs on a rose pure kora tissue border" },
+  { image: "/images/products/mustard-pure-raw-silk-embroidery-saree-2.jpg", alt: "Rose embroidery on mustard pure raw silk" },
+  { image: "/images/products/gold-pure-tissue-lotus-saree-5.jpg", alt: "Lotus embroidery on a gold pure tissue saree" },
+  { image: "/images/products/violet-pure-raw-silk-cutwork-saree-2.jpg", alt: "Embroidered deer on violet pure raw silk" },
+  { image: "/images/products/cotton-blend-pallu-1.jpg", alt: "Printed floral pallu of a cotton blend saree" },
+  { image: "/images/products/rani-red-georgette-zari-saree-1.jpg", alt: "Rani red georgette saree with gold zari" },
 ];

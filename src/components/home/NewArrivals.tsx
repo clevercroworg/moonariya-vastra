@@ -4,19 +4,27 @@ import useEmblaCarousel from "embla-carousel-react";
 import { AnimatePresence, motion } from "motion/react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { products } from "@/data/products";
+import { products, type Product } from "@/data/products";
 import { cn } from "@/lib/utils";
 import { ButtonLink } from "@/components/ui/Button";
 import { ProductCard } from "@/components/ui/ProductCard";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 
-const filters = ["All", "Semi Tissue Silk", "Cotton Blend"] as const;
-type Filter = (typeof filters)[number];
+const groups = {
+  All: () => true,
+  Silk: (p: Product) => p.fabric === "Pure Raw Silk" || p.fabric === "Raw Silk" || p.fabric === "Semi Tissue Silk",
+  Tissue: (p: Product) => p.fabric === "Pure Tissue" || p.fabric === "Pure Kora Tissue",
+  Georgette: (p: Product) => p.fabric === "Georgette",
+  Cotton: (p: Product) => p.fabric === "Cotton Blend",
+} satisfies Record<string, (p: Product) => boolean>;
+const filters = Object.keys(groups) as (keyof typeof groups)[];
+type Filter = keyof typeof groups;
+const newest = [...products].sort((a, b) => b.addedAt.localeCompare(a.addedAt));
 
 export function NewArrivals() {
   const [filter, setFilter] = useState<Filter>("All");
   const list = useMemo(
-    () => (filter === "All" ? products : products.filter((p) => p.fabric === filter)),
+    () => newest.filter(groups[filter]).slice(0, 12),
     [filter],
   );
 
@@ -56,7 +64,7 @@ export function NewArrivals() {
             align="left"
             eyebrow="Just off the loom"
             title={["New", "arrivals."]}
-            intro="Fresh weaves photographed just as they arrived — semi tissue silks with geometric zari and everyday cotton blends with printed borders."
+            intro="Fresh from our latest drop — pure kora tissues, embroidered raw silks, zari georgettes and everyday cotton blends, photographed just as they arrived."
             rule={false}
           />
 

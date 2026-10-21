@@ -9,17 +9,17 @@ import { LotusMark } from "@/components/ui/Ornaments";
 const features = [
   {
     eyebrow: "Just arrived",
-    title: "Semi Tissue Silk",
-    href: "/collections/tissue-sarees",
-    image: "/images/products/violet-semi-tissue-silk-saree-detail.jpg",
-    alt: "Violet semi tissue silk saree with geometric gold zari",
+    title: "Pure Raw Silk",
+    href: "/collections/silk-sarees",
+    image: "/images/products/violet-pure-raw-silk-cutwork-saree-2.jpg",
+    alt: "Violet pure raw silk saree with embroidered deer and cut work",
   },
   {
-    eyebrow: "Everyday edit",
-    title: "Cotton Blend",
-    href: "/collections/cotton-sarees",
-    image: "/images/products/teal-green-cotton-blend-saree-detail.jpg",
-    alt: "Teal cotton blend saree with a printed floral border",
+    eyebrow: "Festive favourite",
+    title: "Pure Tissue",
+    href: "/collections/tissue-sarees",
+    image: "/images/products/gold-pure-tissue-lotus-saree-2.jpg",
+    alt: "Gold pure tissue saree with lotus embroidery",
   },
 ];
 
