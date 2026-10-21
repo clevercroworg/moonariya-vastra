@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { collections, getCollection } from "@/data/collections";
 import { fabrics } from "@/data/home";
+import { weaves } from "@/data/weaves";
 import { CollectionHero } from "@/components/shop/CollectionHero";
 import { CategoryRail, type RailItem } from "@/components/shop/CategoryRail";
 import { CollectionView } from "@/components/shop/CollectionView";
@@ -50,7 +51,7 @@ async function CollectionContent({ params }: { params: Promise<{ slug: string }>
   const collection = getCollection(slug);
   if (!collection) notFound();
 
-  const fabric = fabrics.find((f) => f.id === collection.fabricId);
+  const fabric = [...weaves, ...fabrics].find((f) => f.id === collection.fabricId);
   const suggestions = collections.filter((c) => c.slug !== "all" && c.slug !== collection.slug && c.products.length > 0).slice(0, 4);
 
   return (

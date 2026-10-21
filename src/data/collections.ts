@@ -1,6 +1,7 @@
 import { categories } from "./categories";
 import { fabrics } from "./home";
 import { products, type Product } from "./products";
+import { weaves } from "./weaves";
 
 export type Collection = {
   slug: string;
@@ -78,6 +79,24 @@ const fromCategories: Collection[] = categories.map((c) => {
   };
 });
 
-export const collections: Collection[] = [...special, ...fromCategories];
+// The client's own categories (Drive folders), one page per weave that has stock.
+const fromWeaves: Collection[] = weaves
+  .map((w) => {
+    const list = products.filter((p) => p.fabric === w.fabric).sort(byNewest);
+    return {
+      slug: w.id,
+      name: w.name,
+      title: [w.name, "sarees."] as [string, string],
+      eyebrow: w.tagline,
+      blurb: w.summary,
+      image: list[0]?.image ?? w.image,
+      imageAlt: list[0]?.images[0].alt ?? w.alt,
+      fabricId: w.id,
+      products: list,
+    };
+  })
+  .filter((c) => c.products.length > 0);
+
+export const collections: Collection[] = [...special, ...fromWeaves, ...fromCategories];
 
 export const getCollection = (slug: string) => collections.find((c) => c.slug === slug);

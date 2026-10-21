@@ -4,19 +4,16 @@ import Image from "next/image";
 import { AnimatePresence, motion } from "motion/react";
 import { Droplets, Feather, Sparkles, Waves } from "lucide-react";
 import { useRef, useState } from "react";
-import { fabrics as allFabrics } from "@/data/home";
 import { products } from "@/data/products";
+import { weaves } from "@/data/weaves";
 import { cn } from "@/lib/utils";
 import { ButtonLink } from "@/components/ui/Button";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
-// Only fabrics we actually stock (and therefore have real photos for).
-const fabrics = allFabrics.filter((f) => {
-  const slug = f.href.split("/").pop() ?? "";
-  return products.some((p) => p.collections.includes(slug));
-});
+// The client's own categories, shown only when they have stock (and real photos).
+const fabrics = weaves.filter((w) => products.some((p) => p.fabric === w.fabric));
 
 export function FabricGuide() {
   const [active, setActive] = useState(0);
