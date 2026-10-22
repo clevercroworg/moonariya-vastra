@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import Script from "next/script";
 import { Cormorant_Garamond, Jost } from "next/font/google";
 import { site } from "@/data/site";
 import { introScript } from "@/components/layout/IntroCurtain";
@@ -54,10 +55,10 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en-IN" className={`${display.variable} ${sans.variable}`} suppressHydrationWarning>
-      <head>
-        <script dangerouslySetInnerHTML={{ __html: introScript }} />
-      </head>
       <body className="min-h-screen">
+        <Script id="intro-curtain" strategy="beforeInteractive">
+          {introScript}
+        </Script>
         <a
           href="#main"
           className="sr-only z-[200] rounded-full bg-gold-400 px-5 py-3 text-sm font-medium text-maroon-950 focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
