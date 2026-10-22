@@ -1,42 +1,12 @@
-type Site = {
-  name: string;
-  tagline: string;
-  description: string;
-  url: string;
-  contact: { phone: string; whatsapp: string; email: string; address: string; hours: string };
-  social: { instagram: string; facebook: string; youtube: string };
-  instagramHandle: string;
-};
-
-export const site: Site = {
+// Fixed brand facts and navigation. Contact details, social links, the
+// announcement bar and add-on prices are edited in Admin → Settings.
+export const site = {
   name: "Monaariya Vastra",
   tagline: "Timeless Drapes, Modern Grace",
   description:
-    "Celebrating the timeless elegance of Indian textiles. Shop silk, cotton, linen, organza, georgette, chiffon, tissue, designer and handloom sarees from Monaariya Vastra.",
+    "Celebrating the timeless elegance of Indian textiles. Shop silk, tissue, tussar, cotton, georgette and designer sarees from Monaariya Vastra.",
   url: "https://monaariyavastra.com", // TODO(content): confirm the production domain
-  contact: {
-    // TODO(content): real phone, WhatsApp, email and address from the client
-    phone: "",
-    whatsapp: "", // digits only with country code, e.g. 919876543210
-    email: "",
-    address: "",
-    hours: "", // e.g. "Mon – Sat, 10 am – 7 pm"
-  },
-  social: {
-    // TODO(content): real profile URLs
-    instagram: "",
-    facebook: "",
-    youtube: "",
-  },
-  instagramHandle: "@monaariyavastra", // TODO(content): confirm handle
 };
-
-export const announcements = [
-  "Free shipping across India",
-  "Cash on delivery available",
-  "New arrivals — pure raw silk & tissue sarees",
-  "Secure payments · UPI · Cards · Net Banking",
-];
 
 export type NavLink = { label: string; href: string };
 

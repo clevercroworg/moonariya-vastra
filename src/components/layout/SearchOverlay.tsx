@@ -7,7 +7,8 @@ import { motion } from "motion/react";
 import { ArrowRight, Search, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { popularSearches } from "@/data/site";
-import { productHref, products } from "@/data/products";
+import { productHref } from "@/lib/product-utils";
+import { useCatalog } from "@/components/providers/SiteDataProvider";
 import { formatINR } from "@/lib/utils";
 import { useScrollLock } from "@/components/providers/SmoothScroll";
 import { LotusMark } from "@/components/ui/Ornaments";
@@ -16,6 +17,7 @@ export function SearchOverlay({ onClose }: { onClose: () => void }) {
   const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
   const [q, setQ] = useState("");
+  const { products } = useCatalog();
   useScrollLock(true);
 
   useEffect(() => {

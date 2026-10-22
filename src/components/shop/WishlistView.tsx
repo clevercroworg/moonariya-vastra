@@ -2,13 +2,16 @@
 
 import { AnimatePresence, motion } from "motion/react";
 import { Heart } from "lucide-react";
-import { getProduct, type Product } from "@/data/products";
+import type { ProductSummary } from "@/lib/types";
+import { useCatalog } from "@/components/providers/SiteDataProvider";
 import { useStore } from "@/components/providers/StoreProvider";
 import { ButtonLink } from "@/components/ui/Button";
 import { ProductCard } from "@/components/ui/ProductCard";
 
 export function WishlistView() {
   const { wishlist, hydrated } = useStore();
+  const { products } = useCatalog();
+  const getProduct = (slug: string) => products.find((p) => p.slug === slug);
 
   if (!hydrated) {
     return (
@@ -20,7 +23,7 @@ export function WishlistView() {
     );
   }
 
-  const items = wishlist.map(getProduct).filter((p): p is Product => Boolean(p));
+  const items = wishlist.map(getProduct).filter((p): p is ProductSummary => Boolean(p));
 
   if (items.length === 0) {
     return (

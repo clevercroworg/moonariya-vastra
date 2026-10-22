@@ -4,29 +4,32 @@ import useEmblaCarousel from "embla-carousel-react";
 import { AnimatePresence, motion } from "motion/react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { products, type Product } from "@/data/products";
+import { useCatalog } from "@/components/providers/SiteDataProvider";
 import { cn } from "@/lib/utils";
 import { ButtonLink } from "@/components/ui/Button";
 import { ProductCard } from "@/components/ui/ProductCard";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 
-const groups = {
-  All: () => true,
-  Silk: (p: Product) => ["Pure Raw Silk", "Raw Silk", "Semi Silk"].includes(p.fabric),
-  Tissue: (p: Product) => p.fabric === "Pure Tissue" || p.fabric === "Pure Kora Tissue",
-  Tussar: (p: Product) => p.fabric === "Viscose Tussar",
-  Crush: (p: Product) => p.fabric === "Windy Crush" || p.fabric === "Georgette",
-  Everyday: (p: Product) => p.fabric === "Cotton Blend" || p.fabric === "Thread Work",
-} satisfies Record<string, (p: Product) => boolean>;
-const filters = Object.keys(groups) as (keyof typeof groups)[];
-type Filter = keyof typeof groups;
-const newest = [...products].sort((a, b) => b.addedAt.localeCompare(a.addedAt));
-
 export function NewArrivals() {
-  const [filter, setFilter] = useState<Filter>("All");
+  const { products, categories } = useCatalog();
+  // Tabs: "All" plus the four categories with the most sarees.
+  const filters = useMemo(() => {
+    const counted = categories
+      .map((c) => ({ c, n: products.filter((p) => p.categorySlug === c.slug).length }))
+      .filter((x) => x.n > 0)
+      .sort((a, b) => b.n - a.n)
+      .slice(0, 4)
+      .map((x) => ({ key: x.c.slug, label: x.c.name }));
+    return [{ key: "all", label: "All" }, ...counted];
+  }, [products, categories]);
+  const [filter, setFilter] = useState("all");
   const list = useMemo(
-    () => newest.filter(groups[filter]).slice(0, 12),
-    [filter],
+    () =>
+      [...products]
+        .sort((a, b) => b.addedAt.localeCompare(a.addedAt))
+        .filter((p) => filter === "all" || p.categorySlug === filter)
+        .slice(0, 12),
+    [products, filter],
   );
 
   const [emblaRef, embla] = useEmblaCarousel({ align: "start", containScroll: "trimSnaps", dragFree: false });
@@ -73,24 +76,24 @@ export function NewArrivals() {
             <div role="tablist" aria-label="Filter new arrivals" className="flex flex-wrap gap-1 sm:gap-2">
               {filters.map((f) => (
                 <button
-                  key={f}
+                  key={f.key}
                   role="tab"
                   type="button"
-                  aria-selected={filter === f}
-                  onClick={() => setFilter(f)}
+                  aria-selected={filter === f.key}
+                  onClick={() => setFilter(f.key)}
                   className={cn(
                     "relative h-10 rounded-full px-4 text-[0.7rem] font-medium tracking-[0.14em] whitespace-nowrap uppercase transition-colors duration-300 sm:px-5",
-                    filter === f ? "text-gold-200" : "text-maroon-950 hover:bg-maroon-950/5",
+                    filter === f.key ? "text-gold-200" : "text-maroon-950 hover:bg-maroon-950/5",
                   )}
                 >
-                  {filter === f && (
+                  {filter === f.key && (
                     <motion.span
                       layoutId="arrivals-pill"
                       className="absolute inset-0 rounded-full bg-maroon-950"
                       transition={{ type: "spring", stiffness: 300, damping: 30 }}
                     />
                   )}
-                  <span className="relative">{f}</span>
+                  <span className="relative">{f.label}</span>
                 </button>
               ))}
             </div>

@@ -2,12 +2,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { Mail, MapPin, Phone, Clock } from "lucide-react";
 import { footerColumns, paymentMethods, site } from "@/data/site";
+import { getSettings } from "@/lib/catalog";
 import { FlourishRule } from "@/components/ui/Ornaments";
 import { CurrentYear } from "./CurrentYear";
 import { SocialLinks } from "./SocialLinks";
 
-export function Footer() {
-  const { contact } = site;
+export async function Footer() {
+  const { contact, instagramHandle } = await getSettings();
   const contactRows = [
     { Icon: Phone, label: contact.phone || "Phone number coming soon", href: contact.phone ? `tel:${contact.phone.replace(/\s/g, "")}` : undefined },
     { Icon: Mail, label: contact.email || "Email coming soon", href: contact.email ? `mailto:${contact.email}` : undefined },
@@ -80,7 +81,7 @@ export function Footer() {
           <div className="col-span-2 md:col-span-4 lg:col-span-2">
             <p className="eyebrow mb-5 text-gold-400">Follow us</p>
             <SocialLinks className="flex-wrap" />
-            <p className="mt-5 text-sm text-ivory-100/55">{site.instagramHandle}</p>
+            <p className="mt-5 text-sm text-ivory-100/55">{instagramHandle}</p>
           </div>
         </div>
 

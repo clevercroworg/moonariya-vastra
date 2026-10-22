@@ -4,24 +4,26 @@ import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Search } from "lucide-react";
 import { useState } from "react";
-import { collections } from "@/data/collections";
-import { products } from "@/data/products";
+import { buildCollections, type Collection } from "@/data/collections";
 import { popularSearches } from "@/data/site";
+import type { ProductSummary } from "@/lib/types";
+import { useCatalog } from "@/components/providers/SiteDataProvider";
 import { ProductCard } from "@/components/ui/ProductCard";
 
-const haystack = (p: (typeof products)[number]) =>
+const haystack = (p: ProductSummary, collections: Collection[]) =>
   [
     p.name,
     p.fabric,
     p.colour,
     p.code ?? "",
     ...p.collections.map((c) => collections.find((x) => x.slug === c)?.name ?? c),
-    ...p.details.map((d) => d.value),
   ]
     .join(" ")
     .toLowerCase();
 
 export function SearchResults() {
+  const { products, categories } = useCatalog();
+  const collections = buildCollections(products, categories);
   const params = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
@@ -35,7 +37,7 @@ export function SearchResults() {
   }
 
   const terms = q.toLowerCase().split(/\s+/).filter(Boolean);
-  const results = terms.length ? products.filter((p) => terms.every((t) => haystack(p).includes(t.replace(/s$/, "")))) : [];
+  const results = terms.length ? products.filter((p) => terms.every((t) => haystack(p, collections).includes(t.replace(/s$/, "")))) : [];
   const go = (term: string) => router.replace(`${pathname}?q=${encodeURIComponent(term.trim())}`);
 
   return (

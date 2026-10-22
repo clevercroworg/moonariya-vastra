@@ -2,9 +2,10 @@
 
 import { motion } from "motion/react";
 import { WhatsAppIcon } from "@/components/ui/BrandIcons";
-import { whatsappHref } from "./SocialLinks";
+import { useWhatsApp } from "@/components/providers/SiteDataProvider";
 
 export function WhatsAppButton() {
+  const whatsappHref = useWhatsApp();
   const external = whatsappHref.startsWith("http");
   return (
     <motion.a

@@ -4,20 +4,26 @@ import Image from "next/image";
 import Link from "next/link";
 import { AnimatePresence, motion } from "motion/react";
 import { Heart, Minus, Plus, ShoppingBag, Trash2, Truck } from "lucide-react";
-import { addonById, addonsTotal } from "@/data/addons";
-import { getProduct, productHref, products, type Product } from "@/data/products";
+import { productHref } from "@/lib/product-utils";
+import { addonById as findAddon, addonsTotal as sumAddons, whatsappLink } from "@/lib/settings-defaults";
+import type { ProductSummary as Product } from "@/lib/types";
+import { useCatalog, useSiteSettings } from "@/components/providers/SiteDataProvider";
 import { paymentMethods } from "@/data/site";
 import { formatINR } from "@/lib/utils";
 import { MAX_QTY, useStore, type BagItem } from "@/components/providers/StoreProvider";
 import { ButtonLink } from "@/components/ui/Button";
 import { ProductCard } from "@/components/ui/ProductCard";
 import { WhatsAppIcon } from "@/components/ui/BrandIcons";
-import { whatsappLink } from "@/components/layout/SocialLinks";
 
 type Line = BagItem & { product: Product; unit: number; unitMrp: number };
 
 export function CartView() {
   const { bag, hydrated, setQty, removeFromBag, toggleWishlist, isWishlisted } = useStore();
+  const { products } = useCatalog();
+  const settings = useSiteSettings();
+  const getProduct = (slug: string) => products.find((p) => p.slug === slug);
+  const addonById = (id: string) => findAddon(settings.addons, id);
+  const addonsTotal = (ids: string[]) => sumAddons(settings.addons, ids);
 
   if (!hydrated) {
     return (
@@ -41,22 +47,24 @@ export function CartView() {
 
   if (lines.length === 0) return <EmptyBag />;
 
-  const count = lines.reduce((n, l) => n + l.qty, 0);
-  const mrpTotal = lines.reduce((s, l) => s + l.product.mrp * l.qty, 0);
-  const priceTotal = lines.reduce((s, l) => s + l.product.price * l.qty, 0);
-  const addonTotal = lines.reduce((s, l) => s + addonsTotal(l.addons) * l.qty, 0);
+  // Sold-out pieces stay visible in the bag but are left out of totals and the order.
+  const available = lines.filter((l) => l.product.inStock);
+  const count = available.reduce((n, l) => n + l.qty, 0);
+  const mrpTotal = available.reduce((s, l) => s + l.product.mrp * l.qty, 0);
+  const priceTotal = available.reduce((s, l) => s + l.product.price * l.qty, 0);
+  const addonTotal = available.reduce((s, l) => s + addonsTotal(l.addons) * l.qty, 0);
   const total = priceTotal + addonTotal;
   const savings = mrpTotal - priceTotal;
 
   const orderText = [
     "Hi Monaariya Vastra! I'd like to order:",
-    ...lines.map((l) => {
+    ...available.map((l) => {
       const extras = l.addons.map((a) => addonById(a)?.name).filter(Boolean).join(", ");
       return `• ${l.product.name}${l.product.code ? ` (${l.product.code})` : ""} × ${l.qty}${extras ? ` — with ${extras}` : ""} — ${formatINR(l.unit * l.qty)}`;
     }),
     `Total: ${formatINR(total)}`,
   ].join("\n");
-  const orderHref = whatsappLink(orderText);
+  const orderHref = whatsappLink(settings.contact.whatsapp, orderText);
 
   return (
     <div className="container-x grid gap-10 py-10 sm:py-12 lg:grid-cols-12 lg:gap-14">
@@ -110,6 +118,11 @@ export function CartView() {
                     {formatINR(l.unit)} each
                     {l.unitMrp > l.unit && <span className="ml-2 line-through">{formatINR(l.unitMrp)}</span>}
                   </p>
+                  {!l.product.inStock && (
+                    <p className="mt-2 inline-block rounded-sm bg-ink-900 px-2.5 py-1 text-[0.7rem] tracking-wider text-ivory-50 uppercase">
+                      Sold out — not included in your total
+                    </p>
+                  )}
 
                   <div className="mt-auto flex flex-wrap items-center gap-x-5 gap-y-3 pt-4">
                     <div className="flex h-10 items-center rounded-full border border-maroon-950/25" role="group" aria-label={`Quantity of ${l.product.name}`}>
@@ -225,6 +238,7 @@ export function CartView() {
 }
 
 function EmptyBag() {
+  const { products } = useCatalog();
   const picks = products.slice(0, 4);
   return (
     <div className="container-x py-14 sm:py-20">

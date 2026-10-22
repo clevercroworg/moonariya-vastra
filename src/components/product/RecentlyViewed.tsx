@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect } from "react";
-import { getProduct, type Product } from "@/data/products";
+import type { ProductSummary } from "@/lib/types";
+import { useCatalog } from "@/components/providers/SiteDataProvider";
 import { useStore } from "@/components/providers/StoreProvider";
 import { ProductCard } from "@/components/ui/ProductCard";
 import { Reveal } from "@/components/ui/Reveal";
@@ -9,6 +10,8 @@ import { Reveal } from "@/components/ui/Reveal";
 /** Records the current product and shows the other recently viewed ones. */
 export function RecentlyViewed({ current }: { current: string }) {
   const { recent, markViewed, hydrated } = useStore();
+  const { products } = useCatalog();
+  const getProduct = (slug: string) => products.find((p) => p.slug === slug);
 
   useEffect(() => {
     if (hydrated) markViewed(current);
@@ -17,7 +20,7 @@ export function RecentlyViewed({ current }: { current: string }) {
   const items = recent
     .filter((s) => s !== current)
     .map(getProduct)
-    .filter((p): p is Product => Boolean(p))
+    .filter((p): p is ProductSummary => Boolean(p))
     .slice(0, 4);
 
   if (!hydrated || items.length === 0) return null;

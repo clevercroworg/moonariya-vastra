@@ -3,12 +3,13 @@
 import Image from "next/image";
 import { motion } from "motion/react";
 import { instagramPosts } from "@/data/home";
-import { site } from "@/data/site";
+import { useSiteSettings } from "@/components/providers/SiteDataProvider";
 import { InstagramIcon } from "@/components/ui/BrandIcons";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 
 export function InstagramGallery() {
-  const href = site.social.instagram || "/contact";
+  const { social, instagramHandle } = useSiteSettings();
+  const href = social.instagram || "/contact";
   const external = href.startsWith("http");
   const linkProps = external ? { target: "_blank", rel: "noopener noreferrer" } : {};
 
@@ -17,7 +18,7 @@ export function InstagramGallery() {
       <div className="container-x">
         <SectionHeading
           id="insta-title"
-          eyebrow={site.instagramHandle}
+          eyebrow={instagramHandle}
           title={["Draped in", "Monaariya."]}
           intro="New arrivals, styling ideas and the stories behind every weave — follow along and tag us in your drape."
         />
@@ -60,7 +61,7 @@ export function InstagramGallery() {
             className="group/f inline-flex h-12 items-center gap-3 rounded-full border border-maroon-950/70 px-7 text-[0.78rem] font-medium tracking-[0.2em] text-maroon-950 uppercase transition-colors duration-300 hover:bg-maroon-950 hover:text-gold-300"
           >
             <InstagramIcon className="h-[18px] w-[18px]" />
-            Follow {site.instagramHandle}
+            Follow {instagramHandle}
           </a>
         </div>
       </div>

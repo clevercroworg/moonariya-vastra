@@ -2,18 +2,21 @@
 
 import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useState } from "react";
-import { announcements } from "@/data/site";
+import { useSiteSettings } from "@/components/providers/SiteDataProvider";
 import { Sparkle } from "@/components/ui/Ornaments";
 
 export function AnnouncementBar() {
+  const { announcements } = useSiteSettings();
   const [i, setI] = useState(0);
   const [paused, setPaused] = useState(false);
 
   useEffect(() => {
-    if (paused) return;
+    if (paused || announcements.length < 2) return;
     const t = window.setInterval(() => setI((v) => (v + 1) % announcements.length), 4000);
     return () => window.clearInterval(t);
-  }, [paused]);
+  }, [paused, announcements.length]);
+
+  if (announcements.length === 0) return null;
 
   return (
     <div
@@ -33,7 +36,7 @@ export function AnnouncementBar() {
               transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
               className="absolute inset-0 truncate text-[0.7rem] leading-5 font-medium tracking-[0.22em] uppercase"
             >
-              {announcements[i]}
+              {announcements[i % announcements.length]}
             </motion.p>
           </AnimatePresence>
         </div>

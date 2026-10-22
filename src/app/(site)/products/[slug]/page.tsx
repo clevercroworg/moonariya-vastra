@@ -3,8 +3,11 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { Banknote, PackageCheck, ShieldCheck, Star, Truck } from "lucide-react";
-import { getCollection } from "@/data/collections";
-import { discountPercent, getProduct, productHref, products, relatedProducts } from "@/data/products";
+import { buildCollections } from "@/data/collections";
+import { getCatalog, getSettings } from "@/lib/catalog";
+import { discountPercent, productHref, relatedProducts } from "@/lib/product-utils";
+import { whatsappLink } from "@/lib/settings-defaults";
+import { toSummary } from "@/lib/types";
 import { site } from "@/data/site";
 import { cn, formatINR } from "@/lib/utils";
 import { Breadcrumbs } from "@/components/shop/Breadcrumbs";
@@ -16,16 +19,17 @@ import { RecentlyViewed } from "@/components/product/RecentlyViewed";
 import { ProductCard } from "@/components/ui/ProductCard";
 import { Reveal } from "@/components/ui/Reveal";
 import { TextLink } from "@/components/ui/Button";
-import { whatsappLink } from "@/components/layout/SocialLinks";
 import { ProductSkeleton } from "@/components/shop/Skeletons";
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
+  const { products } = await getCatalog();
   return products.map((p) => ({ slug: p.slug }));
 }
 
 export async function generateMetadata({ params }: PageProps<"/products/[slug]">): Promise<Metadata> {
   const { slug } = await params;
-  const p = getProduct(slug);
+  const { products } = await getCatalog();
+  const p = products.find((x) => x.slug === slug);
   if (!p) return {};
   return {
     title: p.name,
@@ -47,14 +51,22 @@ export default function ProductPage({ params }: PageProps<"/products/[slug]">) {
 
 async function ProductContent({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const product = getProduct(slug);
+  const [{ products, categories }, { contact }] = await Promise.all([getCatalog(), getSettings()]);
+  const product = products.find((x) => x.slug === slug);
   if (!product) notFound();
 
-  const primary = getCollection(product.collections[0]);
+  const summaries = products.map(toSummary);
+  const collections = buildCollections(summaries, categories);
+  // Breadcrumb: the saree's own category page first, else its first menu collection
+  const primary =
+    collections.find((c) => c.slug === product.categorySlug) ?? collections.find((c) => c.slug === product.collections[0]);
   const off = discountPercent(product);
-  const siblings = products.filter((p) => p.fabric === product.fabric);
-  const related = relatedProducts(product, 4);
-  const reviewLink = whatsappLink(`Hi Monaariya Vastra! I'd like to share a review of the ${product.name}.`);
+  // Other colours of the same design (same code), else the same category
+  const siblings = product.code
+    ? products.filter((p) => p.code === product.code)
+    : products.filter((p) => p.categorySlug === product.categorySlug);
+  const related = relatedProducts(toSummary(product), summaries, 4);
+  const reviewLink = whatsappLink(contact.whatsapp, `Hi Monaariya Vastra! I'd like to share a review of the ${product.name}.`);
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -70,7 +82,7 @@ async function ProductContent({ params }: { params: Promise<{ slug: string }> })
       "@type": "Offer",
       priceCurrency: "INR",
       price: product.price,
-      availability: "https://schema.org/InStock",
+      availability: product.inStock ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
       url: new URL(productHref(product.slug), site.url).toString(),
     },
   };

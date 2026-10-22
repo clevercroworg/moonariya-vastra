@@ -4,21 +4,23 @@ import Image from "next/image";
 import { AnimatePresence, motion } from "motion/react";
 import { Droplets, Feather, Sparkles, Waves } from "lucide-react";
 import { useRef, useState } from "react";
-import { products } from "@/data/products";
-import { weaves } from "@/data/weaves";
+import { useCatalog } from "@/components/providers/SiteDataProvider";
 import { cn } from "@/lib/utils";
 import { ButtonLink } from "@/components/ui/Button";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
-// The client's own categories, shown only when they have stock (and real photos).
-const fabrics = weaves.filter((w) => products.some((p) => p.fabric === w.fabric));
+
 
 export function FabricGuide() {
+  const { products, categories } = useCatalog();
+  // The client's own categories, shown only when they have stock (and real photos).
+  const fabrics = categories.filter((c) => products.some((p) => p.categorySlug === c.slug));
   const [active, setActive] = useState(0);
   const tabs = useRef<(HTMLButtonElement | null)[]>([]);
-  const f = fabrics[active];
+  if (fabrics.length === 0) return null;
+  const f = fabrics[Math.min(active, fabrics.length - 1)];
 
   const onKeyDown = (e: React.KeyboardEvent) => {
     const keys: Record<string, number> = { ArrowDown: 1, ArrowRight: 1, ArrowUp: -1, ArrowLeft: -1 };

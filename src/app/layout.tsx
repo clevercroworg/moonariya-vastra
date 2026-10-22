@@ -1,13 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, Jost } from "next/font/google";
 import { site } from "@/data/site";
-import { SmoothScroll } from "@/components/providers/SmoothScroll";
-import { StoreProvider } from "@/components/providers/StoreProvider";
-import { AnnouncementBar } from "@/components/layout/AnnouncementBar";
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
-import { WhatsAppButton } from "@/components/layout/WhatsAppButton";
-import { IntroCurtain, introScript } from "@/components/layout/IntroCurtain";
+import { introScript } from "@/components/layout/IntroCurtain";
 import "./globals.css";
 
 const display = Cormorant_Garamond({
@@ -70,16 +64,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         >
           Skip to content
         </a>
-        <IntroCurtain />
-        <SmoothScroll>
-          <StoreProvider>
-            <AnnouncementBar />
-            <Header />
-            <main id="main">{children}</main>
-            <Footer />
-            <WhatsAppButton />
-          </StoreProvider>
-        </SmoothScroll>
+        {children}
       </body>
     </html>
   );

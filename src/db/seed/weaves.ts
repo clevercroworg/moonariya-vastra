@@ -1,4 +1,4 @@
-import type { Fabric as FabricGuideEntry } from "./home";
+import type { Fabric as FabricGuideEntry } from "../../data/home";
 import type { Fabric } from "./products";
 
 // The client's own saree categories (the folders in their Google Drive), each tied

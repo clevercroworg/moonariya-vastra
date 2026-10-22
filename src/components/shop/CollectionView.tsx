@@ -3,7 +3,8 @@
 import { AnimatePresence, motion } from "motion/react";
 import { Check, ChevronDown, LayoutGrid, Rows3, SlidersHorizontal, X } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
-import { discountPercent, type Product } from "@/data/products";
+import { discountPercent } from "@/lib/product-utils";
+import type { ProductSummary as Product } from "@/lib/types";
 import { cn, formatINR } from "@/lib/utils";
 import { ProductCard } from "@/components/ui/ProductCard";
 import { useScrollLock } from "@/components/providers/SmoothScroll";

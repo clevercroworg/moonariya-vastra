@@ -1,22 +1,20 @@
-import { site } from "@/data/site";
+"use client";
+
 import { cn } from "@/lib/utils";
 import { FacebookIcon, InstagramIcon, WhatsAppIcon, YoutubeIcon } from "@/components/ui/BrandIcons";
+import { useSiteSettings, useWhatsApp } from "@/components/providers/SiteDataProvider";
 
-// Falls back to the contact page until the client shares real profile links.
+// Falls back to the contact page until real profile links are saved in Admin → Settings.
 const fallback = "/contact";
 
-/** WhatsApp chat link with a pre-filled message (contact page until the number is configured). */
-export const whatsappLink = (message: string) =>
-  site.contact.whatsapp ? `https://wa.me/${site.contact.whatsapp}?text=${encodeURIComponent(message)}` : fallback;
-
-export const whatsappHref = whatsappLink("Hi Monaariya Vastra! I'd like to know more about your sarees.");
-
 export function SocialLinks({ className }: { className?: string }) {
+  const { social } = useSiteSettings();
+  const whatsapp = useWhatsApp();
   const items = [
-    { label: "Instagram", href: site.social.instagram || fallback, Icon: InstagramIcon },
-    { label: "Facebook", href: site.social.facebook || fallback, Icon: FacebookIcon },
-    { label: "YouTube", href: site.social.youtube || fallback, Icon: YoutubeIcon },
-    { label: "WhatsApp", href: whatsappHref, Icon: WhatsAppIcon },
+    { label: "Instagram", href: social.instagram || fallback, Icon: InstagramIcon },
+    { label: "Facebook", href: social.facebook || fallback, Icon: FacebookIcon },
+    { label: "YouTube", href: social.youtube || fallback, Icon: YoutubeIcon },
+    { label: "WhatsApp", href: whatsapp, Icon: WhatsAppIcon },
   ];
   return (
     <ul className={cn("flex items-center gap-2", className)}>

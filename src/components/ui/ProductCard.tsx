@@ -4,11 +4,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "motion/react";
 import { Heart, ShoppingBag } from "lucide-react";
-import { discountPercent, productHref, type Product } from "@/data/products";
+import { discountPercent, productHref } from "@/lib/product-utils";
+import type { ProductSummary } from "@/lib/types";
 import { cn, formatINR } from "@/lib/utils";
 import { useStore } from "@/components/providers/StoreProvider";
 
-export function ProductCard({ product, sizes }: { product: Product; sizes: string }) {
+export function ProductCard({ product, sizes }: { product: ProductSummary; sizes: string }) {
   const { addToBag, toggleWishlist, isWishlisted } = useStore();
   const off = discountPercent(product);
   const liked = isWishlisted(product.slug);
@@ -41,7 +42,12 @@ export function ProductCard({ product, sizes }: { product: Product; sizes: strin
               {product.badge}
             </span>
           )}
-          {off > 0 && (
+          {!product.inStock && (
+            <span className="bg-ink-900 px-2.5 py-1 text-[0.62rem] font-medium tracking-[0.18em] text-ivory-50 uppercase">
+              Sold out
+            </span>
+          )}
+          {product.inStock && off > 0 && (
             <span className="bg-rani-600 px-2.5 py-1 text-[0.62rem] font-medium tracking-[0.12em] text-ivory-50 uppercase">
               {off}% off
             </span>
@@ -65,10 +71,11 @@ export function ProductCard({ product, sizes }: { product: Product; sizes: strin
           <button
             type="button"
             onClick={() => addToBag(product.slug, product.name)}
-            className="flex h-11 w-full items-center justify-center gap-2 bg-maroon-950/92 text-[0.7rem] font-medium tracking-[0.2em] text-gold-200 uppercase backdrop-blur transition-colors hover:bg-maroon-950"
+            disabled={!product.inStock}
+            className="flex h-11 w-full items-center justify-center gap-2 bg-maroon-950/92 text-[0.7rem] font-medium tracking-[0.2em] text-gold-200 uppercase backdrop-blur transition-colors hover:bg-maroon-950 disabled:cursor-not-allowed disabled:bg-ink-700/85 disabled:text-ivory-100"
           >
             <ShoppingBag className="h-4 w-4" strokeWidth={1.5} aria-hidden />
-            Add to bag
+            {product.inStock ? "Add to bag" : "Sold out"}
           </button>
         </div>
       </div>

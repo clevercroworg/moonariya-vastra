@@ -5,16 +5,17 @@ import { useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "motion/react";
 import { Check, Heart, Minus, Plus, ShoppingBag } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import { addons, addonsTotal } from "@/data/addons";
-import type { Product } from "@/data/products";
 import { site } from "@/data/site";
+import { addonsTotal as sumAddons, whatsappLink } from "@/lib/settings-defaults";
+import type { Product } from "@/lib/types";
+import { useSiteSettings } from "@/components/providers/SiteDataProvider";
 import { cn, formatINR } from "@/lib/utils";
 import { MAX_QTY, useStore } from "@/components/providers/StoreProvider";
 import { WhatsAppIcon } from "@/components/ui/BrandIcons";
-import { whatsappLink } from "@/components/layout/SocialLinks";
 
 export function ProductPurchase({ product }: { product: Product }) {
   const router = useRouter();
+  const { addons, contact } = useSiteSettings();
   const { addToBag, toggleWishlist, isWishlisted } = useStore();
   const [selected, setSelected] = useState<string[]>([]);
   const [qty, setQty] = useState(1);
@@ -22,7 +23,7 @@ export function ProductPurchase({ product }: { product: Product }) {
   const [showBar, setShowBar] = useState(false);
   const buyRef = useRef<HTMLDivElement>(null);
 
-  const extras = addonsTotal(selected);
+  const extras = sumAddons(addons, selected);
   const unit = product.price + extras;
   const total = unit * qty;
   const liked = isWishlisted(product.slug);
@@ -60,8 +61,39 @@ export function ProductPurchase({ product }: { product: Product }) {
   };
 
   const enquiry = whatsappLink(
+    contact.whatsapp,
     `Hi Monaariya Vastra! I'm interested in the ${product.name}${product.code ? ` (code ${product.code})` : ""}. ${site.url}/products/${product.slug}`,
   );
+
+  if (!product.inStock) {
+    return (
+      <div className="mt-8 rounded-sm border border-ivory-200 bg-ivory-100 p-6">
+        <p className="eyebrow text-rani-600">Sold out</p>
+        <p className="mt-2 font-display text-2xl text-maroon-950">This saree has found its home.</p>
+        <p className="mt-2 text-sm leading-relaxed text-ink-700">
+          Message us — we may be able to source it again, or suggest a similar weave.
+        </p>
+        <div className="mt-5 flex flex-wrap items-center gap-3">
+          <a
+            href={enquiry}
+            {...(enquiry.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+            className="flex h-12 items-center gap-2 rounded-full bg-maroon-950 px-6 text-[0.72rem] font-medium tracking-[0.18em] text-gold-200 uppercase"
+          >
+            <WhatsAppIcon className="h-4 w-4" /> Ask on WhatsApp
+          </a>
+          <button
+            type="button"
+            onClick={() => toggleWishlist(product.slug, product.name)}
+            aria-pressed={liked}
+            className="flex h-12 items-center gap-2 rounded-full border border-maroon-950/25 px-5 text-[0.72rem] font-medium tracking-[0.16em] text-maroon-950 uppercase"
+          >
+            <Heart className={cn("h-4 w-4", liked && "fill-rani-600 text-rani-600")} strokeWidth={1.5} aria-hidden />
+            {liked ? "Saved" : "Save for later"}
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div>

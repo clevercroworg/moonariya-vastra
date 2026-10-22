@@ -3,10 +3,13 @@ import Link from "next/link";
 import type { Collection } from "@/data/collections";
 import { ButtonLink } from "@/components/ui/Button";
 import { FlourishRule } from "@/components/ui/Ornaments";
-import { whatsappHref } from "@/components/layout/SocialLinks";
+import { getSettings } from "@/lib/catalog";
+import { whatsappLink } from "@/lib/settings-defaults";
 
 /** Shown while a category is still being stocked — never a blank grid. */
-export function EmptyCollection({ collection, suggestions }: { collection: Collection; suggestions: Collection[] }) {
+export async function EmptyCollection({ collection, suggestions }: { collection: Collection; suggestions: Collection[] }) {
+  const { contact } = await getSettings();
+  const whatsappHref = whatsappLink(contact.whatsapp, `Hi Monaariya Vastra! I'm looking for ${collection.name.toLowerCase()}.`);
   const external = whatsappHref.startsWith("http");
   return (
     <section className="container-x py-16 sm:py-20">
