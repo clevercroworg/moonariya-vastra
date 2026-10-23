@@ -1,6 +1,7 @@
-// One-time import of the original catalogue into the database. Safe to re-run:
-// rows are matched by slug and updated in place.
-//   npm run db:seed
+// Imports the original catalogue into an empty database (runs on every Vercel build via
+// `npm run db:setup`, but does nothing once sarees exist, so admin edits are never touched).
+//   npm run db:seed              → only if the database is empty
+//   npm run db:seed -- --force   → re-import, overwriting the 64 original sarees by slug
 import { neon } from "@neondatabase/serverless";
 import { sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/neon-http";
@@ -13,6 +14,13 @@ async function main() {
   const url = process.env.DATABASE_URL;
   if (!url) throw new Error("DATABASE_URL is not set");
   const db = drizzle(neon(url), { schema });
+
+  const [{ n: existing }] = await db.select({ n: sql<number>`count(*)::int` }).from(schema.products);
+  if (existing > 0 && !process.argv.includes("--force")) {
+    console.log(`seed: skipped — ${existing} sarees already in the database`);
+    await db.insert(schema.settings).values({ key: "site", value: DEFAULT_SETTINGS }).onConflictDoNothing();
+    return;
+  }
 
   // Categories (the client's own saree categories)
   for (const [i, w] of weaves.entries()) {

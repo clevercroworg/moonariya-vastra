@@ -8,7 +8,7 @@ Built with Next.js 16 (App Router, Cache Components), Tailwind CSS v4, Motion, E
 ```bash
 npm install
 npm run dev        # http://localhost:3000
-npm run build      # production build (homepage is fully static)
+npm run build      # production build (needs DATABASE_URL)
 npm run start
 ```
 
@@ -17,14 +17,13 @@ npm run start
 | Path | What |
 |---|---|
 | `DESIGN.md` | Design system: colours, type, motion, components. Read before building inner pages. |
-| `src/data/` | **All editable content**: brand/contact info (`site.ts`), categories, products, homepage copy (`home.ts`). |
+| `src/data/` | Fixed content: brand info and menus (`site.ts`), homepage copy (`home.ts`), collection rules (`collections.ts`). Sarees, categories and contact details live in the database and are edited in `/admin`. |
 | `src/components/home/` | One file per homepage section (hero, arc carousel, saree show, …). |
 | `src/components/layout/` | Header, mega menu, search, mobile menu, footer, intro curtain. |
 | `src/components/ui/` | Shared pieces: buttons, product card, section heading, ornaments, reveal animations. |
-| `src/app/collections/[slug]`, `src/app/products/[slug]`, `cart`, `wishlist`, `search` | Shop pages (collection listing with filters, product page with add-ons, bag, wishlist, search). |
+| `src/app/(site)/` — `collections/[slug]`, `products/[slug]`, `cart`, `wishlist`, `search` | Shop pages (collection listing with filters, product page with add-ons, bag, wishlist, search). |
 | `src/components/shop/`, `src/components/product/` | Shop and product page components. |
-| `src/data/collections.ts`, `src/data/addons.ts` | Collection definitions (which sarees appear where) and the finishing add-ons with prices. |
-| `src/app/[...slug]/page.tsx` | Temporary "coming soon" page for links not built yet (about, contact, FAQs, policies, checkout, account). |
+| `src/app/(site)/[...slug]/page.tsx` | Temporary "coming soon" page for links not built yet (about, contact, FAQs, policies, checkout, account). |
 | `public/brand/` | Logo (navbar / full / emblem), cut from the client's banner. |
 | `public/images/` | Product photos (real) and generated images (placeholders until replaced). |
 | `client-assets/` | Original files sent by the client (`drive/` = per-category product photos and price sheets from Google Drive). |
@@ -48,3 +47,34 @@ Search the code for `TODO(content)`:
 - Testimonials are **sample text** — replace with real customer reviews.
 - Newsletter form, bag and wishlist are front-end only (saved in the browser); checkout and payments need the store backend.
 - Production domain in `src/data/site.ts`.
+
+## Admin panel (`/admin`)
+
+The shop owner signs in at `/admin` to add, edit or remove sarees (photos, prices, descriptions, stock),
+manage categories, and change contact details, announcements and add-on prices. Changes go live instantly.
+
+| Piece | Service (all from the Vercel dashboard) | Code |
+|---|---|---|
+| Database — sarees, categories, settings | **Neon** (Vercel Marketplace) | `src/db/`, `src/lib/catalog.ts`, `src/app/admin/actions.ts` |
+| Photo uploads | **Vercel Blob** (Storage → Blob, public) | `src/app/api/admin/upload/route.ts` |
+| Admin login | **Clerk** (Vercel Marketplace) | `src/proxy.ts`, `src/lib/admin-auth.ts` |
+
+### Setting up a new Vercel project
+
+1. Import the repo. Under **Integrations** add **Neon** and **Clerk**; under **Storage** create a **Blob** store and connect it.
+2. Add the environment variable `ADMIN_EMAILS` = the email(s) allowed into the admin (comma-separated).
+3. Deploy. The build runs `npm run db:setup` first (see `vercel.json`): it creates the tables and imports the
+   original 64 sarees **only when the database is empty**, so it never overwrites admin edits.
+4. Open `/admin`, sign up with an email from `ADMIN_EMAILS`, done. To add another admin later, edit
+   `ADMIN_EMAILS` and redeploy. Tip: in the Clerk dashboard, set sign-ups to *Restricted*.
+
+### Local development
+
+```bash
+vercel link && vercel env pull .env.local --yes   # DATABASE_URL, Clerk keys, BLOB_READ_WRITE_TOKEN
+echo "ADMIN_EMAILS=you@example.com" > .env.development.local
+npm run db:push && npm run db:seed   # tables + original catalogue (skipped if not empty)
+npm run dev
+```
+
+`npm run db:studio` opens a database browser. `npm run db:seed -- --force` re-imports the original catalogue.
