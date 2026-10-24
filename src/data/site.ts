@@ -61,8 +61,8 @@ export const footerColumns: { title: string; links: NavLink[] }[] = [
       { label: "Contact Us", href: "/contact" },
       { label: "FAQs", href: "/faqs" },
       { label: "Track Your Order", href: "/track-order" },
-      { label: "Shipping Policy", href: "/policies/shipping" },
-      { label: "Returns & Exchanges", href: "/policies/returns" },
+      { label: "Shipping & Delivery", href: "/policies/shipping" },
+      { label: "Cancellation & Refunds", href: "/policies/refund" },
     ],
   },
   {
@@ -72,7 +72,7 @@ export const footerColumns: { title: string; links: NavLink[] }[] = [
       { label: "The Saree Show", href: "/#saree-show" },
       { label: "Fabric Guide", href: "/#fabric-guide" },
       { label: "Privacy Policy", href: "/policies/privacy" },
-      { label: "Terms of Service", href: "/policies/terms" },
+      { label: "Terms & Conditions", href: "/policies/terms" },
     ],
   },
 ];

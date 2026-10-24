@@ -8,15 +8,10 @@ import { PlainSkeleton } from "@/components/shop/Skeletons";
 // "coming soon" screen. Delete each path from this list as its real route is added.
 const planned: Record<string, string> = {
   about: "Our Story",
-  contact: "Contact",
   faqs: "FAQs",
   "track-order": "Track Your Order",
   checkout: "Checkout",
   account: "Account",
-  "policies/shipping": "Shipping Policy",
-  "policies/returns": "Returns & Exchanges",
-  "policies/privacy": "Privacy Policy",
-  "policies/terms": "Terms of Service",
 };
 
 export function generateStaticParams() {
