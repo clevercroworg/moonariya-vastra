@@ -2,7 +2,7 @@ import "server-only";
 import { asc, desc, eq, sql } from "drizzle-orm";
 import { connection } from "next/server";
 import { getDb, schema } from "@/db";
-import type { ProductRow } from "@/db/schema";
+import type { OrderRow, ProductRow } from "@/db/schema";
 import { DEFAULT_SETTINGS } from "./settings-defaults";
 import type { SiteSettings } from "./types";
 
@@ -85,6 +85,32 @@ export async function listAdminCategories(): Promise<AdminCategory[]> {
     sortOrder: c.sortOrder,
     productCount,
   }));
+}
+
+export type AdminOrder = Omit<OrderRow, "createdAt" | "updatedAt" | "paidAt" | "accessToken"> & {
+  createdAt: string;
+  updatedAt: string;
+  paidAt: string | null;
+};
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars -- the customer's link token never reaches the admin UI
+const toAdminOrder = ({ accessToken: _token, ...o }: OrderRow): AdminOrder => ({
+  ...o,
+  createdAt: o.createdAt.toISOString(),
+  updatedAt: o.updatedAt.toISOString(),
+  paidAt: o.paidAt?.toISOString() ?? null,
+});
+
+export async function listAdminOrders(): Promise<AdminOrder[]> {
+  await connection();
+  const rows = await getDb().select().from(schema.orders).orderBy(desc(schema.orders.createdAt)).limit(500);
+  return rows.map(toAdminOrder);
+}
+
+export async function getAdminOrder(id: number): Promise<AdminOrder | null> {
+  await connection();
+  const [row] = await getDb().select().from(schema.orders).where(eq(schema.orders.id, id));
+  return row ? toAdminOrder(row) : null;
 }
 
 export async function getAdminSettings(): Promise<SiteSettings> {

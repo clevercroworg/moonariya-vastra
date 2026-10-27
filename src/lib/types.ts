@@ -80,6 +80,31 @@ export type SiteSettings = {
   addons: Addon[];
 };
 
+export type OrderCustomer = {
+  name: string;
+  phone: string;
+  email: string;
+  address: string;
+  city: string;
+  state: string;
+  pincode: string;
+};
+
+export type OrderItem = {
+  productId: number;
+  slug: string;
+  name: string;
+  code: string | null;
+  colour: string;
+  image: string;
+  price: number;
+  qty: number;
+  addons: { id: string; name: string; price: number }[];
+};
+
+export const ORDER_STATUSES = ["pending", "paid", "shipped", "delivered", "failed", "cancelled", "refunded"] as const;
+export type OrderStatus = (typeof ORDER_STATUSES)[number];
+
 export const toSummary = (p: Product): ProductSummary => ({
   id: p.id,
   slug: p.slug,

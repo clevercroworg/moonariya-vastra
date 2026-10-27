@@ -4,12 +4,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { SignOutButton } from "@clerk/nextjs";
-import { ExternalLink, FolderTree, LayoutDashboard, LogOut, Menu, Settings, Shirt, X } from "lucide-react";
+import { ExternalLink, FolderTree, LayoutDashboard, LogOut, Menu, Package, Settings, Shirt, X } from "lucide-react";
 import { useEffect, useState, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
 const nav = [
   { href: "/admin", label: "Dashboard", Icon: LayoutDashboard, exact: true },
+  { href: "/admin/orders", label: "Orders", Icon: Package },
   { href: "/admin/products", label: "Sarees", Icon: Shirt },
   { href: "/admin/categories", label: "Categories", Icon: FolderTree },
   { href: "/admin/settings", label: "Settings", Icon: Settings },
@@ -127,7 +128,7 @@ export function AdminShell({ user, children }: { user: { name: string; email: st
 
       {/* Phone tab bar */}
       {!editing && (
-        <nav aria-label="Admin sections" className="fixed inset-x-0 bottom-0 z-30 grid grid-cols-4 border-t border-gold-400/15 bg-maroon-950 pb-[env(safe-area-inset-bottom)] lg:hidden">
+        <nav aria-label="Admin sections" className="fixed inset-x-0 bottom-0 z-30 grid grid-cols-5 border-t border-gold-400/15 bg-maroon-950 pb-[env(safe-area-inset-bottom)] lg:hidden">
           {nav.map(({ href, label, Icon, exact }) => {
             const active = exact ? pathname === href : pathname.startsWith(href);
             return (

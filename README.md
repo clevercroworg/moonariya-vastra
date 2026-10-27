@@ -45,7 +45,7 @@ Search the code for `TODO(content)`:
 - Drive folders not yet downloaded (Google rate limit): Semi Silk, Thread Work Sarees, Viscose Tussar, Windy Crush.
 - Phone, WhatsApp number, email, address, store hours, social links and Instagram handle.
 - Testimonials are **sample text** — replace with real customer reviews.
-- Newsletter form, bag and wishlist are front-end only (saved in the browser); checkout and payments need the store backend.
+- Newsletter form, bag and wishlist are saved in the browser; checkout and payments go through Razorpay (see below).
 - Production domain in `src/data/site.ts`.
 
 ## Admin panel (`/admin`)
@@ -67,6 +67,26 @@ manage categories, and change contact details, announcements and add-on prices. 
    original 64 sarees **only when the database is empty**, so it never overwrites admin edits.
 4. Open `/admin`, sign up with an email from `ADMIN_EMAILS`, done. To add another admin later, edit
    `ADMIN_EMAILS` and redeploy. Tip: in the Clerk dashboard, set sign-ups to *Restricted*.
+
+### Online payments (Razorpay)
+
+Checkout at `/checkout` takes payment through Razorpay; paid orders appear in **Admin → Orders**.
+
+- Amounts are calculated on the server from the database — the browser only sends which sarees and how many.
+- Every payment is verified with Razorpay's signature and amount before the order is marked paid.
+- `POST /api/razorpay/webhook` confirms payments even if the customer closes the browser early.
+- The customer gets a private order page: `/order/<number>?t=<token>`.
+
+Environment variables (Vercel → Settings → Environment Variables, **Production**, marked *Sensitive*; never commit them):
+
+| Variable | From |
+|---|---|
+| `RAZORPAY_KEY_ID` | Razorpay → Account & Settings → API Keys |
+| `RAZORPAY_KEY_SECRET` | same |
+| `RAZORPAY_WEBHOOK_SECRET` | the secret you enter when creating the webhook |
+
+Webhook (Razorpay → Account & Settings → Webhooks → Add): URL `https://<your-domain>/api/razorpay/webhook`,
+events `payment.authorized`, `payment.captured`, `payment.failed`, `order.paid`.
 
 ### Local development
 

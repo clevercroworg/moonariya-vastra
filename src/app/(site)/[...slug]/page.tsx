@@ -10,7 +10,6 @@ const planned: Record<string, string> = {
   about: "Our Story",
   faqs: "FAQs",
   "track-order": "Track Your Order",
-  checkout: "Checkout",
   account: "Account",
 };
 

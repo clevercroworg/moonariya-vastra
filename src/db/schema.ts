@@ -1,6 +1,6 @@
 import { sql } from "drizzle-orm";
 import { boolean, integer, jsonb, pgTable, serial, text, timestamp } from "drizzle-orm/pg-core";
-import type { ProductDetail, ProductImage } from "@/lib/types";
+import type { OrderCustomer, OrderItem, ProductDetail, ProductImage } from "@/lib/types";
 
 /** The client's own saree categories (Pure Kora Tissue, Raw Silk, …). */
 export const categories = pgTable("categories", {
@@ -53,6 +53,32 @@ export const settings = pgTable("settings", {
   updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
 });
 
+/** Customer orders. Amounts are whole rupees, always calculated on the server. */
+export const orders = pgTable("orders", {
+  id: serial("id").primaryKey(),
+  number: text("number").notNull().unique(),
+  /** pending → paid → shipped → delivered; or failed / cancelled / refunded */
+  status: text("status").notNull().default("pending"),
+  paymentMethod: text("payment_method").notNull().default("razorpay"),
+  customer: jsonb("customer").$type<OrderCustomer>().notNull(),
+  items: jsonb("items").$type<OrderItem[]>().notNull(),
+  subtotal: integer("subtotal").notNull(),
+  addonsTotal: integer("addons_total").notNull().default(0),
+  shipping: integer("shipping").notNull().default(0),
+  discount: integer("discount").notNull().default(0),
+  total: integer("total").notNull(),
+  razorpayOrderId: text("razorpay_order_id").unique(),
+  razorpayPaymentId: text("razorpay_payment_id"),
+  paidAt: timestamp("paid_at", { withTimezone: true }),
+  /** Secret for the customer's order-confirmation link. */
+  accessToken: text("access_token").notNull(),
+  tracking: text("tracking").notNull().default(""),
+  adminNote: text("admin_note").notNull().default(""),
+  createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+});
+
 export type CategoryRow = typeof categories.$inferSelect;
 export type ProductRow = typeof products.$inferSelect;
 export type NewProductRow = typeof products.$inferInsert;
+export type OrderRow = typeof orders.$inferSelect;

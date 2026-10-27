@@ -30,6 +30,7 @@ type StoreValue = State & {
   addToBag: (slug: string, name: string, opts?: { qty?: number; addons?: string[]; silent?: boolean }) => void;
   setQty: (key: string, qty: number) => void;
   removeFromBag: (key: string) => void;
+  clearBag: () => void;
   toggleWishlist: (slug: string, name: string) => void;
   isWishlisted: (slug: string) => boolean;
   markViewed: (slug: string) => void;
@@ -126,6 +127,8 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     setState((s) => ({ ...s, bag: s.bag.filter((b) => b.key !== key) }));
   }, []);
 
+  const clearBag = useCallback(() => setState((s) => ({ ...s, bag: [] })), []);
+
   const toggleWishlist = useCallback(
     (slug: string, name: string) => {
       const has = state.wishlist.includes(slug);
@@ -152,12 +155,13 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       addToBag,
       setQty,
       removeFromBag,
+      clearBag,
       toggleWishlist,
       isWishlisted: (slug) => state.wishlist.includes(slug),
       markViewed,
       hydrated,
     }),
-    [state, addToBag, setQty, removeFromBag, toggleWishlist, markViewed, hydrated],
+    [state, addToBag, setQty, removeFromBag, clearBag, toggleWishlist, markViewed, hydrated],
   );
 
   return (

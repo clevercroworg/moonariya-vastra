@@ -407,3 +407,39 @@ export async function saveSettings(_prev: ActionState, formData: FormData): Prom
   updateTag(SETTINGS_TAG);
   return { ok: true, message: "Settings saved — the shop is updated." };
 }
+
+/* ------------------------------------------------------------------ */
+/*  Orders                                                             */
+/* ------------------------------------------------------------------ */
+
+// Admins move paid orders along; payment states (pending/paid/failed) come only from Razorpay.
+const ADMIN_ORDER_STATUSES = ["paid", "shipped", "delivered", "cancelled", "refunded"] as const;
+
+const orderUpdateSchema = z.object({
+  id: z.number().int().positive(),
+  status: z.enum(ADMIN_ORDER_STATUSES).optional(),
+  tracking: z.string().trim().max(300).optional(),
+  adminNote: z.string().trim().max(1000).optional(),
+});
+
+export async function updateOrder(input: z.input<typeof orderUpdateSchema>): Promise<ActionState> {
+  try {
+    await requireAdmin();
+  } catch (e) {
+    return authFailure(e);
+  }
+  const parsed = orderUpdateSchema.safeParse(input);
+  if (!parsed.success) return { ok: false, message: "Invalid update." };
+  const { id, ...changes } = parsed.data;
+  const db = getDb();
+  const [order] = await db.select({ status: schema.orders.status }).from(schema.orders).where(eq(schema.orders.id, id));
+  if (!order) return { ok: false, message: "Order not found." };
+  if (changes.status && (order.status === "pending" || order.status === "failed")) {
+    return { ok: false, message: "This order has not been paid, so its status can’t be changed." };
+  }
+  await db
+    .update(schema.orders)
+    .set({ ...changes, updatedAt: new Date() })
+    .where(eq(schema.orders.id, id));
+  return { ok: true, message: "Order updated." };
+}

@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { AlertTriangle, ArrowRight, FolderTree, ImageOff, PackageX, Plus, Settings, Shirt, Store, Tag } from "lucide-react";
-import { listAdminCategories, listAdminProducts } from "@/lib/admin-data";
+import { AlertTriangle, ArrowRight, FolderTree, ImageOff, Package, PackageX, Plus, Settings, Shirt, Store, Tag } from "lucide-react";
+import { listAdminCategories, listAdminOrders, listAdminProducts } from "@/lib/admin-data";
 import { formatINR } from "@/lib/utils";
 import { Card, PageHeader, Pill, buttonCls } from "@/components/admin/ui";
 
@@ -16,7 +16,8 @@ const greeting = () => {
 const dateFmt = new Intl.DateTimeFormat("en-IN", { day: "numeric", month: "short", hour: "numeric", minute: "2-digit", timeZone: "Asia/Kolkata" });
 
 export default async function DashboardPage() {
-  const [products, categories] = await Promise.all([listAdminProducts(), listAdminCategories()]);
+  const [products, categories, orders] = await Promise.all([listAdminProducts(), listAdminCategories(), listAdminOrders()]);
+  const toShip = orders.filter((o) => o.status === "paid").length;
 
   const live = products.filter((p) => p.status === "published");
   const drafts = products.filter((p) => p.status === "draft");
@@ -29,10 +30,10 @@ export default async function DashboardPage() {
   const recent = products.slice(0, 6);
 
   const stats = [
+    { label: "Orders to ship", value: toShip, Icon: Package, href: "/admin/orders", tone: "text-maroon-700 bg-maroon-700/10" },
     { label: "Sarees live", value: live.length, Icon: Shirt, href: "/admin/products?status=published", tone: "text-emerald-700 bg-emerald-700/10" },
     { label: "Drafts", value: drafts.length, Icon: Tag, href: "/admin/products?status=draft", tone: "text-gold-700 bg-gold-400/20" },
     { label: "Sold out", value: soldOut.length, Icon: PackageX, href: "/admin/products?status=soldout", tone: "text-rani-600 bg-rani-600/10" },
-    { label: "Categories", value: categories.length, Icon: FolderTree, href: "/admin/categories", tone: "text-maroon-700 bg-maroon-700/10" },
   ];
 
   const attention = [
