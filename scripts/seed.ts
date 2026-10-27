@@ -3,7 +3,7 @@
 //   npm run db:seed              → only if the database is empty
 //   npm run db:seed -- --force   → re-import, overwriting the 64 original sarees by slug
 import { neon } from "@neondatabase/serverless";
-import { sql } from "drizzle-orm";
+import { eq, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/neon-http";
 import * as schema from "../src/db/schema";
 import { products } from "../src/db/seed/products";
@@ -19,6 +19,7 @@ async function main() {
   if (existing > 0 && !process.argv.includes("--force")) {
     console.log(`seed: skipped — ${existing} sarees already in the database`);
     await db.insert(schema.settings).values({ key: "site", value: DEFAULT_SETTINGS }).onConflictDoNothing();
+    await syncTestProduct(db);
     return;
   }
 
@@ -83,6 +84,46 @@ async function main() {
   // Settings — only created if missing, so re-running never overwrites admin edits
   await db.insert(schema.settings).values({ key: "site", value: DEFAULT_SETTINGS }).onConflictDoNothing();
   console.log("settings: ok");
+  await syncTestProduct(db);
+}
+
+const TEST_SLUG = "razorpay-test-saree";
+
+/**
+ * TEST_PRODUCT=on adds a ₹1 saree for testing live payments; without it the saree is removed.
+ * Set or remove the variable in Vercel and redeploy.
+ */
+async function syncTestProduct(db: ReturnType<typeof drizzle<typeof schema>>) {
+  if (process.env.TEST_PRODUCT !== "on") {
+    const removed = await db.delete(schema.products).where(eq(schema.products.slug, TEST_SLUG)).returning({ id: schema.products.id });
+    if (removed.length) console.log("test product: removed");
+    return;
+  }
+  const [model] = await db.select().from(schema.products).where(eq(schema.products.status, "published")).limit(1);
+  if (!model) return;
+  const values = {
+    slug: TEST_SLUG,
+    code: "TEST",
+    name: "Razorpay Test Saree (₹1)",
+    categoryId: model.categoryId,
+    collections: [],
+    colour: "Test",
+    swatch: model.swatch,
+    price: 1,
+    mrp: 1,
+    badge: null,
+    status: "published",
+    inStock: true,
+    summary: "For payment testing only — not a real product.",
+    description: ["This listing exists only to test online payments and will be removed."],
+    details: [],
+    care: "",
+    images: model.images.slice(0, 1),
+    sortOrder: 999999,
+    createdAt: new Date("2020-01-01T00:00:00Z"),
+  };
+  await db.insert(schema.products).values(values).onConflictDoUpdate({ target: schema.products.slug, set: { ...values, updatedAt: sql`now()` } });
+  console.log("test product: ready at /products/" + TEST_SLUG);
 }
 
 main().catch((e) => {
