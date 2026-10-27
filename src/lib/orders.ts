@@ -3,7 +3,9 @@ import { randomBytes } from "node:crypto";
 import { and, eq, inArray } from "drizzle-orm";
 import { getDb, schema } from "@/db";
 import type { OrderRow } from "@/db/schema";
+import { after } from "next/server";
 import { getSettings } from "./catalog";
+import { sendOrderConfirmation } from "./email";
 import { ensureCaptured, type RazorpayPayment } from "./razorpay";
 import type { OrderItem } from "./types";
 
@@ -94,6 +96,8 @@ export async function markOrderPaid(razorpayOrderId: string, payment: RazorpayPa
     .set({ status: "paid", razorpayPaymentId: payment.id, paidAt: new Date(), updatedAt: new Date() })
     .where(and(eq(schema.orders.id, order.id), inArray(schema.orders.status, ["pending", "failed"])))
     .returning();
+  // Only the call that actually flipped the order to paid sends the email (checkout and webhook may both arrive).
+  if (updated) after(() => sendOrderConfirmation(updated));
   return updated ?? order;
 }
 
